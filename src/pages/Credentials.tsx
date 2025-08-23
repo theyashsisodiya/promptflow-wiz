@@ -5,30 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 interface Credential {
   id: string;
   name: string;
@@ -37,69 +16,63 @@ interface Credential {
   lastUsed: Date;
   status: 'active' | 'expired' | 'unused';
 }
-
-const mockCredentials: Credential[] = [
-  {
-    id: '1',
-    name: 'Docker Hub Registry',
-    type: 'API Token',
-    service: 'Docker',
-    lastUsed: new Date(Date.now() - 86400000),
-    status: 'active'
-  },
-  {
-    id: '2',
-    name: 'Jenkins Admin',
-    type: 'Username/Password',
-    service: 'Jenkins',
-    lastUsed: new Date(Date.now() - 3600000),
-    status: 'active'
-  },
-  {
-    id: '3',
-    name: 'K8s Cluster Access',
-    type: 'Kubeconfig',
-    service: 'Kubernetes',
-    lastUsed: new Date(Date.now() - 1800000),
-    status: 'active'
-  },
-  {
-    id: '4',
-    name: 'GitLab Deploy Key',
-    type: 'SSH Key',
-    service: 'GitLab',
-    lastUsed: new Date(Date.now() - 604800000),
-    status: 'unused'
-  }
-];
-
+const mockCredentials: Credential[] = [{
+  id: '1',
+  name: 'Docker Hub Registry',
+  type: 'API Token',
+  service: 'Docker',
+  lastUsed: new Date(Date.now() - 86400000),
+  status: 'active'
+}, {
+  id: '2',
+  name: 'Jenkins Admin',
+  type: 'Username/Password',
+  service: 'Jenkins',
+  lastUsed: new Date(Date.now() - 3600000),
+  status: 'active'
+}, {
+  id: '3',
+  name: 'K8s Cluster Access',
+  type: 'Kubeconfig',
+  service: 'Kubernetes',
+  lastUsed: new Date(Date.now() - 1800000),
+  status: 'active'
+}, {
+  id: '4',
+  name: 'GitLab Deploy Key',
+  type: 'SSH Key',
+  service: 'GitLab',
+  lastUsed: new Date(Date.now() - 604800000),
+  status: 'unused'
+}];
 const Credentials = () => {
   const [credentials, setCredentials] = useState(mockCredentials);
   const [showAddDialog, setShowAddDialog] = useState(false);
-  const [showPasswords, setShowPasswords] = useState<{[key: string]: boolean}>({});
-
+  const [showPasswords, setShowPasswords] = useState<{
+    [key: string]: boolean;
+  }>({});
   const togglePasswordVisibility = (id: string) => {
     setShowPasswords(prev => ({
       ...prev,
       [id]: !prev[id]
     }));
   };
-
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'active': return <Badge className="status-success">Active</Badge>;
-      case 'expired': return <Badge className="status-error">Expired</Badge>;
-      case 'unused': return <Badge className="status-warning">Unused</Badge>;
-      default: return <Badge className="status-pending">Unknown</Badge>;
+      case 'active':
+        return <Badge className="status-success">Active</Badge>;
+      case 'expired':
+        return <Badge className="status-error">Expired</Badge>;
+      case 'unused':
+        return <Badge className="status-warning">Unused</Badge>;
+      default:
+        return <Badge className="status-pending">Unknown</Badge>;
     }
   };
-
   const deleteCredential = (id: string) => {
     setCredentials(prev => prev.filter(cred => cred.id !== id));
   };
-
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -126,10 +99,7 @@ const Credentials = () => {
             <div className="space-y-4 py-4">
               <div className="space-y-2">
                 <Label htmlFor="cred-name">Credential Name</Label>
-                <Input 
-                  id="cred-name" 
-                  placeholder="e.g., Production Docker Registry"
-                />
+                <Input id="cred-name" placeholder="e.g., Production Docker Registry" />
               </div>
               
               <div className="space-y-2">
@@ -169,19 +139,12 @@ const Credentials = () => {
               
               <div className="space-y-2">
                 <Label htmlFor="cred-value">Credential Value</Label>
-                <Input 
-                  id="cred-value" 
-                  type="password"
-                  placeholder="Enter your credential value"
-                />
+                <Input id="cred-value" type="password" placeholder="Enter your credential value" />
               </div>
             </div>
             
             <div className="flex justify-end space-x-2">
-              <Button 
-                variant="outline" 
-                onClick={() => setShowAddDialog(false)}
-              >
+              <Button variant="outline" onClick={() => setShowAddDialog(false)}>
                 Cancel
               </Button>
               <Button onClick={() => setShowAddDialog(false)}>
@@ -195,21 +158,21 @@ const Credentials = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
             <CardTitle className="text-sm font-medium">Total Credentials</CardTitle>
             <Key className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-slate-50">
             <div className="text-2xl font-bold">{credentials.length}</div>
             <p className="text-xs text-muted-foreground">Stored securely</p>
           </CardContent>
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
             <CardTitle className="text-sm font-medium">Active</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-slate-50">
             <div className="text-2xl font-bold text-status-success">
               {credentials.filter(c => c.status === 'active').length}
             </div>
@@ -218,10 +181,10 @@ const Credentials = () => {
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
             <CardTitle className="text-sm font-medium">Unused</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-slate-50">
             <div className="text-2xl font-bold text-status-warning">
               {credentials.filter(c => c.status === 'unused').length}
             </div>
@@ -230,10 +193,10 @@ const Credentials = () => {
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
             <CardTitle className="text-sm font-medium">Services</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-slate-50">
             <div className="text-2xl font-bold">
               {new Set(credentials.map(c => c.service)).size}
             </div>
@@ -244,13 +207,13 @@ const Credentials = () => {
 
       {/* Credentials Table */}
       <Card className="gradient-card">
-        <CardHeader>
+        <CardHeader className="bg-slate-50">
           <CardTitle>Stored Credentials</CardTitle>
           <CardDescription>
             All credentials are encrypted at rest and in transit
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="bg-slate-50">
           <Table>
             <TableHeader>
               <TableRow>
@@ -263,8 +226,7 @@ const Credentials = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {credentials.map((credential) => (
-                <TableRow key={credential.id}>
+              {credentials.map(credential => <TableRow key={credential.id}>
                   <TableCell className="font-medium">
                     {credential.name}
                   </TableCell>
@@ -278,32 +240,18 @@ const Credentials = () => {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-2">
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => togglePasswordVisibility(credential.id)}
-                      >
-                        {showPasswords[credential.id] ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
+                      <Button variant="ghost" size="sm" onClick={() => togglePasswordVisibility(credential.id)}>
+                        {showPasswords[credential.id] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </Button>
                       <Button variant="ghost" size="sm">
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => deleteCredential(credential.id)}
-                        className="text-destructive hover:text-destructive"
-                      >
+                      <Button variant="ghost" size="sm" onClick={() => deleteCredential(credential.id)} className="text-destructive hover:text-destructive">
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </TableCell>
-                </TableRow>
-              ))}
+                </TableRow>)}
             </TableBody>
           </Table>
         </CardContent>
@@ -311,10 +259,10 @@ const Credentials = () => {
 
       {/* Security Notice */}
       <Card className="gradient-card border-warning-orange/30">
-        <CardHeader>
+        <CardHeader className="bg-slate-50">
           <CardTitle className="text-warning-orange">Security Best Practices</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="bg-slate-50">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-medium mb-2">Credential Management</h4>
@@ -337,8 +285,6 @@ const Credentials = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default Credentials;
