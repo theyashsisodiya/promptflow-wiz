@@ -70,7 +70,7 @@ const Feedback = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-accent">23</div>
-            <p className="text-xs text-muted-foreground">From user requests</p>
+            <p className="text-xs text-muted-foreground bg-slate-50">From user requests</p>
           </CardContent>
         </Card>
 
