@@ -162,7 +162,7 @@ const ChatConsole = () => {
 
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input value={input} onChange={e => setInput(e.target.value)} placeholder="Ask me anything about your workflows..." className="flex-1" />
-                <Button type="submit" size="icon" className="bg-primary hover:bg-primary/90">
+                <Button type="submit" size="icon" className="bg-slate-50">
                   <Send className="w-4 h-4" />
                 </Button>
               </form>
