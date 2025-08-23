@@ -42,9 +42,9 @@ export function AppSidebar() {
     isActive: boolean;
   }) => isActive ? "bg-primary/20 text-primary border-l-2 border-primary font-medium" : "hover:bg-muted/50 hover:text-foreground";
   return <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
-      <SidebarContent className="gradient-card border-r border-border bg-slate-50">
+      <SidebarContent className="gradient-card border-r border-border">
         {/* Logo Section */}
-        <div className="p-4 border-b border-border">
+        <div className="p-4 border-b border-border text-slate-900">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
               <Zap className="w-4 h-4 text-primary-foreground" />
@@ -65,7 +65,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
                       <item.icon className="mr-2 h-4 w-4" />
-                      {!collapsed && <span className="bg-slate-50">{item.title}</span>}
+                      {!collapsed && <span className="bg-zinc-50">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>)}
