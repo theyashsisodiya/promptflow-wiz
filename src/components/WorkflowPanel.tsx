@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Play, Pause, RotateCcw, Settings } from "lucide-react";
+import { useTranslation } from 'react-i18next';
+import { ChevronDown, ChevronRight, Play, Pause, RotateCcw, Settings, AlertTriangle, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { TroubleshootDialog } from "@/components/TroubleshootDialog";
 
 interface WorkflowPanelProps {
   tool: {
@@ -15,13 +17,20 @@ interface WorkflowPanelProps {
     commands: string[];
     logs: string[];
     metadata: Record<string, string>;
+    error?: string;
   };
   onEdit: () => void;
   onRerun: () => void;
+  onAiRetry?: () => void;
+  onPromptEdit?: (prompt: string) => void;
 }
 
-export function WorkflowPanel({ tool, onEdit, onRerun }: WorkflowPanelProps) {
-  const [isExpanded, setIsExpanded] = useState(tool.status === 'running');
+export function WorkflowPanel({ tool, onEdit, onRerun, onAiRetry, onPromptEdit }: WorkflowPanelProps) {
+  const { t } = useTranslation();
+  const [isExpanded, setIsExpanded] = useState(tool.status === 'running' || tool.status === 'error');
+  const [showTroubleshoot, setShowTroubleshoot] = useState(false);
+  
+  const shouldShowTroubleshoot = tool.status === 'error' || tool.status === 'pending';
 
   const getStatusClass = (status: string) => {
     switch (status) {
@@ -43,46 +52,75 @@ export function WorkflowPanel({ tool, onEdit, onRerun }: WorkflowPanelProps) {
   };
 
   return (
-    <Card className={`gradient-card tool-panel-enter ${tool.status === 'running' ? 'glow-primary' : ''}`}>
-      <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
-        <CollapsibleTrigger asChild>
-          <CardHeader className="cursor-pointer hover:bg-muted/20 transition-colors">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-                <div className="flex items-center gap-2">
-                  {getStatusIcon(tool.status)}
-                  <CardTitle className="text-lg">{tool.name}</CardTitle>
+    <>
+      <Card className={`gradient-card tool-panel-enter ${
+        tool.status === 'running' ? 'glow-primary' : ''
+      } ${tool.status === 'error' ? 'border-error-red/50' : ''}`}>
+        <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
+          <CollapsibleTrigger asChild>
+            <CardHeader className="cursor-pointer hover:bg-muted/20 transition-colors">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                  <div className="flex items-center gap-2">
+                    {getStatusIcon(tool.status)}
+                    <CardTitle className="text-lg">{tool.name}</CardTitle>
+                  </div>
+                  <Badge className={`${getStatusClass(tool.status)} border`}>
+                    {t(`workflow.${tool.status}`).toUpperCase()}
+                  </Badge>
+                  {shouldShowTroubleshoot && (
+                    <Badge variant="outline" className="text-error-red border-error-red/30">
+                      <AlertTriangle className="w-3 h-3 mr-1" />
+                      Issues
+                    </Badge>
+                  )}
                 </div>
-                <Badge className={`${getStatusClass(tool.status)} border`}>
-                  {tool.status.toUpperCase()}
-                </Badge>
+                
+                <div className="flex items-center gap-2">
+                  {shouldShowTroubleshoot && (
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowTroubleshoot(true);
+                      }}
+                      className="text-error-red border-error-red/30 hover:bg-error-red/10"
+                    >
+                      <Wrench className="w-4 h-4 mr-1" />
+                      {t('workflow.troubleshoot')}
+                    </Button>
+                  )}
+                  <Button variant="ghost" size="sm" onClick={(e) => {
+                    e.stopPropagation();
+                    onEdit();
+                  }}>
+                    <Settings className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={(e) => {
+                    e.stopPropagation();
+                    onRerun();
+                  }}>
+                    <RotateCcw className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
               
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" onClick={onEdit}>
-                  <Settings className="w-4 h-4" />
-                </Button>
-                <Button variant="ghost" size="sm" onClick={onRerun}>
-                  <RotateCcw className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-            
-            {tool.status === 'running' && (
-              <Progress value={tool.progress} className="w-full mt-2" />
-            )}
-          </CardHeader>
-        </CollapsibleTrigger>
+              {tool.status === 'running' && (
+                <Progress value={tool.progress} className="w-full mt-2" />
+              )}
+            </CardHeader>
+          </CollapsibleTrigger>
 
-        <CollapsibleContent>
-          <CardContent>
-            <Tabs defaultValue="commands" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="commands">Commands</TabsTrigger>
-                <TabsTrigger value="logs">Logs</TabsTrigger>
-                <TabsTrigger value="metadata">Metadata</TabsTrigger>
-              </TabsList>
+          <CollapsibleContent>
+            <CardContent>
+              <Tabs defaultValue="commands" className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="commands">{t('workflow.commands')}</TabsTrigger>
+                  <TabsTrigger value="logs">{t('workflow.logs')}</TabsTrigger>
+                  <TabsTrigger value="metadata">{t('workflow.metadata')}</TabsTrigger>
+                </TabsList>
               
               <TabsContent value="commands" className="mt-4">
                 <div className="code-panel max-h-64 overflow-y-auto">
@@ -106,7 +144,7 @@ export function WorkflowPanel({ tool, onEdit, onRerun }: WorkflowPanelProps) {
                   {tool.status === 'running' && (
                     <div className="flex items-center gap-2 mt-2">
                       <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                      <span className="text-muted-foreground text-sm">Live output...</span>
+                      <span className="text-muted-foreground text-sm">{t('workflow.liveOutput')}</span>
                     </div>
                   )}
                 </div>
@@ -122,10 +160,21 @@ export function WorkflowPanel({ tool, onEdit, onRerun }: WorkflowPanelProps) {
                   ))}
                 </div>
               </TabsContent>
-            </Tabs>
-          </CardContent>
-        </CollapsibleContent>
-      </Collapsible>
-    </Card>
+              </Tabs>
+            </CardContent>
+          </CollapsibleContent>
+        </Collapsible>
+      </Card>
+
+      <TroubleshootDialog
+        open={showTroubleshoot}
+        onOpenChange={setShowTroubleshoot}
+        toolName={tool.name}
+        error={tool.error}
+        onAiRetry={() => onAiRetry?.()}
+        onManualEdit={() => onEdit()}
+        onPromptEdit={(prompt) => onPromptEdit?.(prompt)}
+      />
+    </>
   );
 }

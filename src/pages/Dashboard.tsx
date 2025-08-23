@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { PlayCircle, Plus, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +8,17 @@ import { Input } from "@/components/ui/input";
 import { WorkflowPanel } from "@/components/WorkflowPanel";
 import { ChatPanel } from "@/components/ChatPanel";
 
-const mockTools = [
+interface Tool {
+  name: string;
+  status: 'pending' | 'running' | 'success' | 'error' | 'warning';
+  progress: number;
+  commands: string[];
+  logs: string[];
+  metadata: Record<string, string>;
+  error?: string;
+}
+
+const mockTools: Tool[] = [
   {
     name: "Docker",
     status: "success" as const,
@@ -52,23 +63,29 @@ const mockTools = [
   },
   {
     name: "Kubernetes",
-    status: "pending" as const,
+    status: "error" as const,
     progress: 0,
     commands: [
       "kubectl apply -f deployment.yaml",
       "kubectl set image deployment/myapp myapp=registry.io/myapp:v1.2.3"
     ],
-    logs: [],
+    logs: [
+      "Error: deployment.yaml not found",
+      "Failed to apply configuration",
+      "Connection timeout to cluster"
+    ],
     metadata: {
       "Namespace": "production",
       "Deployment": "myapp",
       "Replicas": "3",
       "Strategy": "RollingUpdate"
-    }
+    },
+    error: "Error: deployment.yaml not found\nFailed to apply configuration\nConnection timeout to cluster at line 23"
   }
 ];
 
 const Dashboard = () => {
+  const { t } = useTranslation();
   const [tools, setTools] = useState(mockTools);
   const [newPrompt, setNewPrompt] = useState("");
 
@@ -87,6 +104,26 @@ const Dashboard = () => {
     // Rerun the specific tool step
   };
 
+  const handleAiRetry = (toolName: string) => {
+    console.log("AI retry for:", toolName);
+    // Trigger AI-powered retry
+    setTools(prev => prev.map(tool => 
+      tool.name === toolName 
+        ? { ...tool, status: 'running' as const, progress: 0 }
+        : tool
+    ));
+  };
+
+  const handlePromptEdit = (toolName: string, prompt: string) => {
+    console.log("Prompt edit for:", toolName, prompt);
+    // Apply prompt-based changes to the tool
+    setTools(prev => prev.map(tool => 
+      tool.name === toolName 
+        ? { ...tool, status: 'running' as const, progress: 0 }
+        : tool
+    ));
+  };
+
   const activeWorkflows = tools.filter(tool => tool.status === 'running').length;
   const completedToday = 12;
 
@@ -94,9 +131,9 @@ const Dashboard = () => {
     <div className="space-y-6">
       {/* Header Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="gradient-card">
+        <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Workflows</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.activeWorkflows')}</CardTitle>
             <PlayCircle className="h-4 w-4 text-status-running" />
           </CardHeader>
           <CardContent>
@@ -105,9 +142,9 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="gradient-card">
+        <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completed Today</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.completedToday')}</CardTitle>
             <Zap className="h-4 w-4 text-status-success" />
           </CardHeader>
           <CardContent>
@@ -116,9 +153,9 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="gradient-card">
+        <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Success Rate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.successRate')}</CardTitle>
             <Badge className="status-success">98.5%</Badge>
           </CardHeader>
           <CardContent>
@@ -127,9 +164,9 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="gradient-card">
+        <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Deploy Time</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.avgDeployTime')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">4.2m</div>
@@ -139,11 +176,11 @@ const Dashboard = () => {
       </div>
 
       {/* Quick Start */}
-      <Card className="gradient-card">
+      <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle>Quick Start New Workflow</CardTitle>
+          <CardTitle>{t('dashboard.quickStart')}</CardTitle>
           <CardDescription>
-            Describe your deployment needs in natural language
+            {t('dashboard.quickStartDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -159,7 +196,7 @@ const Dashboard = () => {
               className="bg-primary hover:bg-primary/90"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Start Workflow
+              {t('dashboard.startWorkflow')}
             </Button>
           </div>
         </CardContent>
@@ -170,9 +207,9 @@ const Dashboard = () => {
         {/* Workflow Panels */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Current Workflow</h2>
+            <h2 className="text-xl font-semibold">{t('dashboard.currentWorkflow')}</h2>
             <Badge variant="outline" className="status-running">
-              {tools.length} Tools in Pipeline
+              {tools.length} {t('dashboard.toolsInPipeline')}
             </Badge>
           </div>
           
@@ -182,6 +219,8 @@ const Dashboard = () => {
               tool={tool}
               onEdit={() => handleEditTool(tool.name)}
               onRerun={() => handleRerunTool(tool.name)}
+              onAiRetry={() => handleAiRetry(tool.name)}
+              onPromptEdit={(prompt) => handlePromptEdit(tool.name, prompt)}
             />
           ))}
         </div>

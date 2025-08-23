@@ -1,0 +1,56 @@
+{
+  "dashboard": {
+    "title": "Panel de Control",
+    "activeWorkflows": "Flujos Activos",
+    "completedToday": "Completados Hoy",
+    "successRate": "Tasa de Éxito",
+    "avgDeployTime": "Tiempo Promedio de Despliegue",
+    "quickStart": "Iniciar Nuevo Flujo Rápido",
+    "quickStartDesc": "Describe tus necesidades de despliegue en lenguaje natural",
+    "startWorkflow": "Iniciar Flujo",
+    "currentWorkflow": "Flujo Actual",
+    "toolsInPipeline": "Herramientas en Pipeline"
+  },
+  "workflow": {
+    "commands": "Comandos",
+    "logs": "Registros",
+    "metadata": "Metadatos",
+    "troubleshoot": "Solucionar",
+    "aiRetry": "Reintentar con IA",
+    "manualEdit": "Edición Manual",
+    "promptEdit": "Editar con Prompt",
+    "rerun": "Reejecutar",
+    "liveOutput": "Salida en vivo...",
+    "failed": "Fallido",
+    "pending": "Pendiente",
+    "running": "Ejecutándose",
+    "success": "Éxito",
+    "error": "Error"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "viewAll": "Ver Todas",
+    "noNotifications": "No hay nuevas notificaciones",
+    "taskCompleted": "Tarea completada exitosamente",
+    "taskFailed": "Tarea falló - revisar registros",
+    "taskRunning": "Tarea en progreso",
+    "taskPending": "Tarea en cola"
+  },
+  "troubleshooting": {
+    "title": "Opciones de Solución",
+    "description": "Elige cómo resolver este problema:",
+    "aiRetryDesc": "Permitir que la IA arregle y reintente automáticamente",
+    "manualEditDesc": "Editar configuración manualmente",
+    "promptEditDesc": "Usar lenguaje natural para modificar"
+  },
+  "common": {
+    "language": "Idioma",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "close": "Cerrar"
+  }
+}

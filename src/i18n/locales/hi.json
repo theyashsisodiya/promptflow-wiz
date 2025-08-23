@@ -1,0 +1,56 @@
+{
+  "dashboard": {
+    "title": "डैशबोर्ड",
+    "activeWorkflows": "सक्रिय वर्कफ़लो",
+    "completedToday": "आज पूर्ण",
+    "successRate": "सफलता दर",
+    "avgDeployTime": "औसत डिप्लॉय समय",
+    "quickStart": "त्वरित नया वर्कफ़लो शुरू करें",
+    "quickStartDesc": "अपनी डिप्लॉयमेंट आवश्यकताओं को प्राकृतिक भाषा में वर्णित करें",
+    "startWorkflow": "वर्कफ़लो शुरू करें",
+    "currentWorkflow": "वर्तमान वर्कफ़लो",
+    "toolsInPipeline": "पाइपलाइन में उपकरण"
+  },
+  "workflow": {
+    "commands": "कमांड",
+    "logs": "लॉग्स",
+    "metadata": "मेटाडेटा",
+    "troubleshoot": "समस्या निवारण",
+    "aiRetry": "AI पुनः प्रयास",
+    "manualEdit": "मैन्युअल संपादन",
+    "promptEdit": "प्रॉम्प्ट संपादन",
+    "rerun": "पुनः चलाएं",
+    "liveOutput": "लाइव आउटपुट...",
+    "failed": "असफल",
+    "pending": "लंबित",
+    "running": "चल रहा है",
+    "success": "सफल",
+    "error": "त्रुटि"
+  },
+  "notifications": {
+    "title": "सूचनाएं",
+    "viewAll": "सभी देखें",
+    "noNotifications": "कोई नई सूचना नहीं",
+    "taskCompleted": "कार्य सफलतापूर्वक पूरा हुआ",
+    "taskFailed": "कार्य असफल - लॉग्स जांचें",
+    "taskRunning": "कार्य प्रगति में",
+    "taskPending": "कार्य कतार में"
+  },
+  "troubleshooting": {
+    "title": "समस्या निवारण विकल्प",
+    "description": "इस समस्या को हल करने का तरीका चुनें:",
+    "aiRetryDesc": "AI को स्वचालित रूप से ठीक करने और पुनः प्रयास करने दें",
+    "manualEditDesc": "कॉन्फ़िगरेशन को मैन्युअल रूप से संपादित करें",
+    "promptEditDesc": "संशोधन के लिए प्राकृतिक भाषा का उपयोग करें"
+  },
+  "common": {
+    "language": "भाषा",
+    "theme": "थीम",
+    "light": "हल्का",
+    "dark": "गहरा",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "edit": "संपादित करें",
+    "close": "बंद करें"
+  }
+}

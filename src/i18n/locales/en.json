@@ -1,0 +1,56 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "activeWorkflows": "Active Workflows",
+    "completedToday": "Completed Today",
+    "successRate": "Success Rate",
+    "avgDeployTime": "Avg Deploy Time",
+    "quickStart": "Quick Start New Workflow",
+    "quickStartDesc": "Describe your deployment needs in natural language",
+    "startWorkflow": "Start Workflow",
+    "currentWorkflow": "Current Workflow",
+    "toolsInPipeline": "Tools in Pipeline"
+  },
+  "workflow": {
+    "commands": "Commands",
+    "logs": "Logs",
+    "metadata": "Metadata",
+    "troubleshoot": "Troubleshoot",
+    "aiRetry": "AI Retry",
+    "manualEdit": "Manual Edit",
+    "promptEdit": "Prompt Edit",
+    "rerun": "Rerun",
+    "liveOutput": "Live output...",
+    "failed": "Failed",
+    "pending": "Pending",
+    "running": "Running",
+    "success": "Success",
+    "error": "Error"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "viewAll": "View All",
+    "noNotifications": "No new notifications",
+    "taskCompleted": "Task completed successfully",
+    "taskFailed": "Task failed - check logs",
+    "taskRunning": "Task in progress",
+    "taskPending": "Task queued"
+  },
+  "troubleshooting": {
+    "title": "Troubleshooting Options",
+    "description": "Choose how to resolve this issue:",
+    "aiRetryDesc": "Let AI automatically fix and retry",
+    "manualEditDesc": "Edit configuration manually",
+    "promptEditDesc": "Use natural language to modify"
+  },
+  "common": {
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "close": "Close"
+  }
+}
