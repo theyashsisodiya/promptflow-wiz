@@ -6,15 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 interface Tool {
   id: string;
   name: string;
@@ -24,91 +16,75 @@ interface Tool {
   icon: string;
   configUrl?: string;
 }
-
-const availableTools: Tool[] = [
-  {
-    id: "docker",
-    name: "Docker",
-    description: "Container platform for building and deploying applications",
-    category: "Containerization",
-    connected: true,
-    icon: "🐳"
-  },
-  {
-    id: "jenkins",
-    name: "Jenkins",
-    description: "Open-source automation server for CI/CD pipelines",
-    category: "CI/CD",
-    connected: true,
-    icon: "⚙️"
-  },
-  {
-    id: "kubernetes",
-    name: "Kubernetes",
-    description: "Container orchestration platform",
-    category: "Orchestration",
-    connected: true,
-    icon: "☸️"
-  },
-  {
-    id: "gitlab",
-    name: "GitLab",
-    description: "Git repository management and CI/CD platform",
-    category: "Source Control",
-    connected: false,
-    icon: "🦊"
-  },
-  {
-    id: "circleci",
-    name: "CircleCI",
-    description: "Continuous integration and delivery platform",
-    category: "CI/CD",
-    connected: false,
-    icon: "⭕"
-  },
-  {
-    id: "argocd",
-    name: "ArgoCD",
-    description: "Declarative GitOps continuous delivery tool",
-    category: "GitOps",
-    connected: false,
-    icon: "🚀"
-  },
-  {
-    id: "terraform",
-    name: "Terraform",
-    description: "Infrastructure as Code tool",
-    category: "Infrastructure",
-    connected: false,
-    icon: "🏗️"
-  },
-  {
-    id: "ansible",
-    name: "Ansible",
-    description: "Automation tool for configuration management",
-    category: "Configuration",
-    connected: false,
-    icon: "📋"
-  }
-];
-
+const availableTools: Tool[] = [{
+  id: "docker",
+  name: "Docker",
+  description: "Container platform for building and deploying applications",
+  category: "Containerization",
+  connected: true,
+  icon: "🐳"
+}, {
+  id: "jenkins",
+  name: "Jenkins",
+  description: "Open-source automation server for CI/CD pipelines",
+  category: "CI/CD",
+  connected: true,
+  icon: "⚙️"
+}, {
+  id: "kubernetes",
+  name: "Kubernetes",
+  description: "Container orchestration platform",
+  category: "Orchestration",
+  connected: true,
+  icon: "☸️"
+}, {
+  id: "gitlab",
+  name: "GitLab",
+  description: "Git repository management and CI/CD platform",
+  category: "Source Control",
+  connected: false,
+  icon: "🦊"
+}, {
+  id: "circleci",
+  name: "CircleCI",
+  description: "Continuous integration and delivery platform",
+  category: "CI/CD",
+  connected: false,
+  icon: "⭕"
+}, {
+  id: "argocd",
+  name: "ArgoCD",
+  description: "Declarative GitOps continuous delivery tool",
+  category: "GitOps",
+  connected: false,
+  icon: "🚀"
+}, {
+  id: "terraform",
+  name: "Terraform",
+  description: "Infrastructure as Code tool",
+  category: "Infrastructure",
+  connected: false,
+  icon: "🏗️"
+}, {
+  id: "ansible",
+  name: "Ansible",
+  description: "Automation tool for configuration management",
+  category: "Configuration",
+  connected: false,
+  icon: "📋"
+}];
 const Integrations = () => {
   const [tools, setTools] = useState(availableTools);
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
-
   const toggleConnection = (toolId: string) => {
-    setTools(prev => prev.map(tool => 
-      tool.id === toolId 
-        ? { ...tool, connected: !tool.connected }
-        : tool
-    ));
+    setTools(prev => prev.map(tool => tool.id === toolId ? {
+      ...tool,
+      connected: !tool.connected
+    } : tool));
   };
-
   const categories = [...new Set(tools.map(tool => tool.category))];
   const connectedCount = tools.filter(tool => tool.connected).length;
-
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -130,30 +106,26 @@ const Integrations = () => {
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {categories.map(category => {
-          const categoryTools = tools.filter(tool => tool.category === category);
-          const connectedInCategory = categoryTools.filter(tool => tool.connected).length;
-          
-          return (
-            <Card key={category} className="gradient-card">
-              <CardHeader className="pb-3">
+        const categoryTools = tools.filter(tool => tool.category === category);
+        const connectedInCategory = categoryTools.filter(tool => tool.connected).length;
+        return <Card key={category} className="gradient-card">
+              <CardHeader className="pb-3 bg-slate-50 rounded-none">
                 <CardTitle className="text-sm font-medium">{category}</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="bg-slate-50">
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold">{connectedInCategory}/{categoryTools.length}</span>
                   <Zap className={`h-4 w-4 ${connectedInCategory > 0 ? 'text-status-success' : 'text-muted-foreground'}`} />
                 </div>
               </CardContent>
-            </Card>
-          );
-        })}
+            </Card>;
+      })}
       </div>
 
       {/* Tools Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map(tool => (
-          <Card key={tool.id} className={`gradient-card transition-all hover:shadow-lg ${tool.connected ? 'ring-1 ring-primary/20' : ''}`}>
-            <CardHeader>
+        {tools.map(tool => <Card key={tool.id} className={`gradient-card transition-all hover:shadow-lg ${tool.connected ? 'ring-1 ring-primary/20' : ''}`}>
+            <CardHeader className="bg-slate-50">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{tool.icon}</span>
@@ -164,25 +136,18 @@ const Integrations = () => {
                     </Badge>
                   </div>
                 </div>
-                {tool.connected ? (
-                  <CheckCircle className="h-5 w-5 text-status-success" />
-                ) : (
-                  <Circle className="h-5 w-5 text-muted-foreground" />
-                )}
+                {tool.connected ? <CheckCircle className="h-5 w-5 text-status-success" /> : <Circle className="h-5 w-5 text-muted-foreground" />}
               </div>
             </CardHeader>
             
-            <CardContent>
+            <CardContent className="bg-slate-50">
               <CardDescription className="mb-4">
                 {tool.description}
               </CardDescription>
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <Switch
-                    checked={tool.connected}
-                    onCheckedChange={() => toggleConnection(tool.id)}
-                  />
+                  <Switch checked={tool.connected} onCheckedChange={() => toggleConnection(tool.id)} />
                   <Label className="text-sm">
                     {tool.connected ? 'Connected' : 'Connect'}
                   </Label>
@@ -190,11 +155,7 @@ const Integrations = () => {
                 
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => setSelectedTool(tool)}
-                    >
+                    <Button variant="ghost" size="sm" onClick={() => setSelectedTool(tool)}>
                       <Settings className="h-4 w-4" />
                     </Button>
                   </DialogTrigger>
@@ -209,19 +170,12 @@ const Integrations = () => {
                     <div className="space-y-4 py-4">
                       <div className="space-y-2">
                         <Label htmlFor="endpoint">Endpoint URL</Label>
-                        <Input 
-                          id="endpoint" 
-                          placeholder={`https://${tool.name.toLowerCase()}.example.com`}
-                        />
+                        <Input id="endpoint" placeholder={`https://${tool.name.toLowerCase()}.example.com`} />
                       </div>
                       
                       <div className="space-y-2">
                         <Label htmlFor="token">API Token</Label>
-                        <Input 
-                          id="token" 
-                          type="password"
-                          placeholder="Enter your API token"
-                        />
+                        <Input id="token" type="password" placeholder="Enter your API token" />
                       </div>
                       
                       <div className="flex items-center space-x-2">
@@ -238,19 +192,18 @@ const Integrations = () => {
                 </Dialog>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
 
       {/* Integration Guide */}
       <Card className="gradient-card">
-        <CardHeader>
+        <CardHeader className="bg-slate-50">
           <CardTitle className="flex items-center gap-2">
             <ExternalLink className="h-5 w-5" />
             Integration Guide
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="bg-slate-50 rounded-none">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-medium mb-2">Quick Setup</h4>
@@ -273,8 +226,6 @@ const Integrations = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default Integrations;
