@@ -61,7 +61,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// AIaaS Platform Colors
+				'electric-blue': 'hsl(var(--electric-blue))',
+				'neon-green': 'hsl(var(--neon-green))',
+				'warning-orange': 'hsl(var(--warning-orange))',
+				'error-red': 'hsl(var(--error-red))',
+				'success-green': 'hsl(var(--success-green))',
+				'status-running': 'hsl(var(--status-running))',
+				'status-success': 'hsl(var(--status-success))',
+				'status-warning': 'hsl(var(--status-warning))',
+				'status-error': 'hsl(var(--status-error))',
+				'status-pending': 'hsl(var(--status-pending))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
