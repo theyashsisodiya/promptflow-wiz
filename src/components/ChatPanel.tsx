@@ -5,40 +5,34 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-
 interface ChatMessage {
   id: string;
   type: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: Date;
 }
-
 interface ChatPanelProps {
   onPromptSubmit: (prompt: string) => void;
 }
-
-export function ChatPanel({ onPromptSubmit }: ChatPanelProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: '1',
-      type: 'system',
-      content: 'Welcome to AIaaS Platform! Describe your deployment workflow and I\'ll orchestrate the tools automatically.',
-      timestamp: new Date()
-    }
-  ]);
+export function ChatPanel({
+  onPromptSubmit
+}: ChatPanelProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>([{
+    id: '1',
+    type: 'system',
+    content: 'Welcome to AIaaS Platform! Describe your deployment workflow and I\'ll orchestrate the tools automatically.',
+    timestamp: new Date()
+  }]);
   const [input, setInput] = useState('');
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       type: 'user',
       content: input,
       timestamp: new Date()
     };
-
     setMessages(prev => [...prev, userMessage]);
     onPromptSubmit(input);
     setInput('');
@@ -54,26 +48,28 @@ export function ChatPanel({ onPromptSubmit }: ChatPanelProps) {
       setMessages(prev => [...prev, aiMessage]);
     }, 1000);
   };
-
   const getMessageIcon = (type: string) => {
     switch (type) {
-      case 'user': return <User className="w-4 h-4" />;
-      case 'assistant': return <Bot className="w-4 h-4" />;
-      default: return <Zap className="w-4 h-4" />;
+      case 'user':
+        return <User className="w-4 h-4" />;
+      case 'assistant':
+        return <Bot className="w-4 h-4" />;
+      default:
+        return <Zap className="w-4 h-4" />;
     }
   };
-
   const getMessageClass = (type: string) => {
     switch (type) {
-      case 'user': return 'bg-primary/10 border-primary/20';
-      case 'assistant': return 'bg-accent/10 border-accent/20';
-      default: return 'bg-muted/30 border-border';
+      case 'user':
+        return 'bg-primary/10 border-primary/20';
+      case 'assistant':
+        return 'bg-accent/10 border-accent/20';
+      default:
+        return 'bg-muted/30 border-border';
     }
   };
-
-  return (
-    <Card className="gradient-card h-full flex flex-col">
-      <CardHeader>
+  return <Card className="gradient-card h-full flex flex-col">
+      <CardHeader className="bg-slate-50">
         <CardTitle className="flex items-center gap-2">
           <Bot className="w-5 h-5 text-primary" />
           AI Workflow Assistant
@@ -83,11 +79,10 @@ export function ChatPanel({ onPromptSubmit }: ChatPanelProps) {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col">
+      <CardContent className="flex-1 flex flex-col bg-slate-50">
         <ScrollArea className="flex-1 mb-4">
           <div className="space-y-4">
-            {messages.map((message) => (
-              <div key={message.id} className={`p-3 rounded-lg border ${getMessageClass(message.type)}`}>
+            {messages.map(message => <div key={message.id} className={`p-3 rounded-lg border ${getMessageClass(message.type)}`}>
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 text-muted-foreground">
                     {getMessageIcon(message.type)}
@@ -99,23 +94,16 @@ export function ChatPanel({ onPromptSubmit }: ChatPanelProps) {
                     </p>
                   </div>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </ScrollArea>
 
         <form onSubmit={handleSubmit} className="flex gap-2">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Describe your deployment workflow..."
-            className="flex-1"
-          />
+          <Input value={input} onChange={e => setInput(e.target.value)} placeholder="Describe your deployment workflow..." className="flex-1" />
           <Button type="submit" size="icon" className="bg-primary hover:bg-primary/90">
             <Send className="w-4 h-4" />
           </Button>
         </form>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 }

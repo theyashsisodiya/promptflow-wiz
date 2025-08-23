@@ -50,7 +50,7 @@ export function AppSidebar() {
               <Zap className="w-4 h-4 text-primary-foreground" />
             </div>
             {!collapsed && <div>
-                <h1 className="text-lg font-bold text-foreground">AIaaS</h1>
+                <h1 className="text-lg font-bold text-foreground bg-slate-50">AIaaS</h1>
                 <p className="text-xs text-muted-foreground">DevOps Platform</p>
               </div>}
           </div>
@@ -65,7 +65,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
                       <item.icon className="mr-2 h-4 w-4" />
-                      {!collapsed && <span>{item.title}</span>}
+                      {!collapsed && <span className="bg-slate-50">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>)}
