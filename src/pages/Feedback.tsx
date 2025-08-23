@@ -8,44 +8,35 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 const Feedback = () => {
   const [rating, setRating] = useState(0);
   const [feedbackType, setFeedbackType] = useState("");
-
   const handleStarClick = (value: number) => {
     setRating(value);
   };
-
-  const recentFeedback = [
-    {
-      id: 1,
-      type: "Feature Request",
-      title: "Add support for GitLab runners",
-      status: "In Progress",
-      votes: 23,
-      date: "2 days ago"
-    },
-    {
-      id: 2,
-      type: "Bug Report", 
-      title: "Docker build timeout issues",
-      status: "Fixed",
-      votes: 15,
-      date: "1 week ago"
-    },
-    {
-      id: 3,
-      type: "Feature Request",
-      title: "Workflow templates library",
-      status: "Planned",
-      votes: 31,
-      date: "2 weeks ago"
-    }
-  ];
-
-  return (
-    <div className="space-y-6">
+  const recentFeedback = [{
+    id: 1,
+    type: "Feature Request",
+    title: "Add support for GitLab runners",
+    status: "In Progress",
+    votes: 23,
+    date: "2 days ago"
+  }, {
+    id: 2,
+    type: "Bug Report",
+    title: "Docker build timeout issues",
+    status: "Fixed",
+    votes: 15,
+    date: "1 week ago"
+  }, {
+    id: 3,
+    type: "Feature Request",
+    title: "Workflow templates library",
+    status: "Planned",
+    votes: 31,
+    date: "2 weeks ago"
+  }];
+  return <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -84,7 +75,7 @@ const Feedback = () => {
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
             <CardTitle className="text-sm font-medium">Bugs Fixed</CardTitle>
             <Bug className="h-4 w-4 text-status-success" />
           </CardHeader>
@@ -95,7 +86,7 @@ const Feedback = () => {
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
             <CardTitle className="text-sm font-medium">Satisfaction Rate</CardTitle>
             <Heart className="h-4 w-4 text-error-red" />
           </CardHeader>
@@ -108,14 +99,14 @@ const Feedback = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Feedback Form */}
-        <Card className="gradient-card">
-          <CardHeader>
+        <Card className="gradient-card bg-slate-50">
+          <CardHeader className="bg-slate-50">
             <CardTitle>Submit Feedback</CardTitle>
             <CardDescription>
               Share your thoughts, report bugs, or request new features
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-slate-50">
             <Tabs defaultValue="general" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="general">General</TabsTrigger>
@@ -127,27 +118,13 @@ const Feedback = () => {
                 <div className="space-y-2">
                   <Label>How would you rate your experience?</Label>
                   <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star
-                        key={star}
-                        className={`h-6 w-6 cursor-pointer transition-colors ${
-                          star <= rating 
-                            ? 'fill-warning-orange text-warning-orange' 
-                            : 'text-muted-foreground hover:text-warning-orange'
-                        }`}
-                        onClick={() => handleStarClick(star)}
-                      />
-                    ))}
+                    {[1, 2, 3, 4, 5].map(star => <Star key={star} className={`h-6 w-6 cursor-pointer transition-colors ${star <= rating ? 'fill-warning-orange text-warning-orange' : 'text-muted-foreground hover:text-warning-orange'}`} onClick={() => handleStarClick(star)} />)}
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="general-feedback">Your Feedback</Label>
-                  <Textarea 
-                    id="general-feedback"
-                    placeholder="Tell us about your experience with the platform..."
-                    rows={4}
-                  />
+                  <Textarea id="general-feedback" placeholder="Tell us about your experience with the platform..." rows={4} />
                 </div>
 
                 <Button className="w-full bg-primary hover:bg-primary/90">
@@ -159,19 +136,12 @@ const Feedback = () => {
               <TabsContent value="bug" className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="bug-title">Bug Title</Label>
-                  <Input 
-                    id="bug-title"
-                    placeholder="Brief description of the bug"
-                  />
+                  <Input id="bug-title" placeholder="Brief description of the bug" />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="bug-steps">Steps to Reproduce</Label>
-                  <Textarea 
-                    id="bug-steps"
-                    placeholder="1. Go to...&#10;2. Click on...&#10;3. Expected vs actual behavior..."
-                    rows={4}
-                  />
+                  <Textarea id="bug-steps" placeholder="1. Go to...&#10;2. Click on...&#10;3. Expected vs actual behavior..." rows={4} />
                 </div>
 
                 <div className="space-y-2">
@@ -201,28 +171,17 @@ const Feedback = () => {
               <TabsContent value="feature" className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="feature-title">Feature Title</Label>
-                  <Input 
-                    id="feature-title"
-                    placeholder="What feature would you like to see?"
-                  />
+                  <Input id="feature-title" placeholder="What feature would you like to see?" />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="feature-description">Description</Label>
-                  <Textarea 
-                    id="feature-description"
-                    placeholder="Describe the feature and how it would help you..."
-                    rows={4}
-                  />
+                  <Textarea id="feature-description" placeholder="Describe the feature and how it would help you..." rows={4} />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="feature-use-case">Use Case</Label>
-                  <Textarea 
-                    id="feature-use-case"
-                    placeholder="When and how would you use this feature?"
-                    rows={2}
-                  />
+                  <Textarea id="feature-use-case" placeholder="When and how would you use this feature?" rows={2} />
                 </div>
 
                 <Button className="w-full bg-accent hover:bg-accent/90">
@@ -236,35 +195,22 @@ const Feedback = () => {
 
         {/* Recent Feedback */}
         <Card className="gradient-card">
-          <CardHeader>
+          <CardHeader className="bg-slate-50">
             <CardTitle>Recent Community Feedback</CardTitle>
             <CardDescription>
               See what other users are suggesting and vote on ideas
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-slate-50">
             <div className="space-y-4">
-              {recentFeedback.map((item) => (
-                <div key={item.id} className="p-4 border border-border rounded-lg hover:bg-muted/20 transition-colors">
+              {recentFeedback.map(item => <div key={item.id} className="p-4 border border-border rounded-lg hover:bg-muted/20 transition-colors">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <Badge 
-                          variant="outline" 
-                          className={
-                            item.type === "Bug Report" ? "status-error" : "status-pending"
-                          }
-                        >
+                        <Badge variant="outline" className={item.type === "Bug Report" ? "status-error" : "status-pending"}>
                           {item.type}
                         </Badge>
-                        <Badge
-                          variant="outline"
-                          className={
-                            item.status === "Fixed" ? "status-success" :
-                            item.status === "In Progress" ? "status-running" :
-                            "status-warning"
-                          }
-                        >
+                        <Badge variant="outline" className={item.status === "Fixed" ? "status-success" : item.status === "In Progress" ? "status-running" : "status-warning"}>
                           {item.status}
                         </Badge>
                       </div>
@@ -278,8 +224,7 @@ const Feedback = () => {
                       </Button>
                     </div>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
 
             <Button variant="outline" className="w-full mt-4">
@@ -355,8 +300,6 @@ const Feedback = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default Feedback;
