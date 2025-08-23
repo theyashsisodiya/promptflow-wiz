@@ -90,7 +90,7 @@ const Feedback = () => {
             <CardTitle className="text-sm font-medium">Satisfaction Rate</CardTitle>
             <Heart className="h-4 w-4 text-error-red" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-slate-50">
             <div className="text-2xl font-bold">4.8/5</div>
             <p className="text-xs text-muted-foreground">Average rating</p>
           </CardContent>
