@@ -68,19 +68,19 @@ export function ChatPanel({
         return 'bg-muted/30 border-border';
     }
   };
-  return <Card className="gradient-card h-full flex flex-col">
-      <CardHeader className="bg-slate-50">
-        <CardTitle className="flex items-center gap-2">
+  return <Card className="modern-panel h-full flex flex-col">
+      <div className="modern-panel-header">
+        <CardTitle className="flex items-center gap-2 text-foreground">
           <Bot className="w-5 h-5 text-primary" />
           AI Workflow Assistant
           <Badge variant="outline" className="status-running ml-auto">
             Online
           </Badge>
         </CardTitle>
-      </CardHeader>
+      </div>
 
-      <CardContent className="flex-1 flex flex-col bg-slate-50">
-        <ScrollArea className="flex-1 mb-4">
+      <div className="modern-panel-content flex-1 flex flex-col">
+        <ScrollArea className="flex-1 mb-4 bg-background/30 rounded-lg border border-border/50 p-4">
           <div className="space-y-4">
             {messages.map(message => <div key={message.id} className={`p-3 rounded-lg border ${getMessageClass(message.type)}`}>
                 <div className="flex items-start gap-3">
@@ -98,12 +98,12 @@ export function ChatPanel({
           </div>
         </ScrollArea>
 
-        <form onSubmit={handleSubmit} className="flex gap-2">
-          <Input value={input} onChange={e => setInput(e.target.value)} placeholder="Describe your deployment workflow..." className="flex-1" />
-          <Button type="submit" size="icon" className="bg-primary hover:bg-primary/90">
+        <form onSubmit={handleSubmit} className="flex gap-3">
+          <Input value={input} onChange={e => setInput(e.target.value)} placeholder="Describe your deployment workflow..." className="flex-1 bg-background border-border rounded-lg" />
+          <Button type="submit" size="icon" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg">
             <Send className="w-4 h-4" />
           </Button>
         </form>
-      </CardContent>
+      </div>
     </Card>;
 }

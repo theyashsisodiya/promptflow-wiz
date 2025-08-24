@@ -63,63 +63,63 @@ export function WorkflowPanel({
     }
   };
   return <>
-      <Card className={`gradient-card tool-panel-enter ${tool.status === 'running' ? 'glow-primary' : ''} ${tool.status === 'error' ? 'border-error-red/50' : ''}`}>
+      <Card className={`modern-panel tool-panel-enter ${tool.status === 'running' ? 'glow-primary' : ''} ${tool.status === 'error' ? 'border-error-red/50' : ''}`}>
         <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
           <CollapsibleTrigger asChild>
-            <CardHeader className="cursor-pointer transition-colors bg-slate-50">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+            <div className="modern-panel-header cursor-pointer transition-all duration-200 hover:bg-muted/30">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3 flex-wrap">
+                  {isExpanded ? <ChevronDown className="w-4 h-4 text-muted-foreground" /> : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
                   <div className="flex items-center gap-2">
                     {getStatusIcon(tool.status)}
-                    <CardTitle className="text-lg">{tool.name}</CardTitle>
+                    <CardTitle className="text-lg text-foreground">{tool.name}</CardTitle>
                   </div>
-                  <Badge className={`${getStatusClass(tool.status)} border`}>
+                  <Badge className={`${getStatusClass(tool.status)}`}>
                     {t(`workflow.${tool.status}`).toUpperCase()}
                   </Badge>
-                  {shouldShowTroubleshoot && <Badge variant="outline" className="text-error-red border-error-red/30">
+                  {shouldShowTroubleshoot && <Badge variant="outline" className="text-error-red border-error-red/30 bg-error-red/5">
                       <AlertTriangle className="w-3 h-3 mr-1" />
                       Issues
                     </Badge>}
                 </div>
                 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   {shouldShowTroubleshoot && <Button variant="outline" size="sm" onClick={e => {
                   e.stopPropagation();
                   setShowTroubleshoot(true);
-                }} className="text-error-red border-error-red/30 hover:bg-error-red/10">
+                }} className="text-error-red border-error-red/30 hover:bg-error-red/10 rounded-lg">
                       <Wrench className="w-4 h-4 mr-1" />
                       {t('workflow.troubleshoot')}
                     </Button>}
                   <Button variant="ghost" size="sm" onClick={e => {
                   e.stopPropagation();
                   onEdit();
-                }}>
+                }} className="hover:bg-muted/50 rounded-lg">
                     <Settings className="w-4 h-4" />
                   </Button>
                   <Button variant="ghost" size="sm" onClick={e => {
                   e.stopPropagation();
                   onRerun();
-                }}>
+                }} className="hover:bg-muted/50 rounded-lg">
                     <RotateCcw className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
               
-              {tool.status === 'running' && <Progress value={tool.progress} className="w-full mt-2" />}
-            </CardHeader>
+              {tool.status === 'running' && <Progress value={tool.progress} className="w-full mt-4 h-2" />}
+            </div>
           </CollapsibleTrigger>
 
           <CollapsibleContent>
-            <CardContent className="bg-slate-50">
+            <div className="modern-panel-content">
               <Tabs defaultValue="commands" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="commands">{t('workflow.commands')}</TabsTrigger>
-                  <TabsTrigger value="logs">{t('workflow.logs')}</TabsTrigger>
-                  <TabsTrigger value="metadata">{t('workflow.metadata')}</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-3 bg-muted/30 rounded-lg">
+                  <TabsTrigger value="commands" className="rounded-md">{t('workflow.commands')}</TabsTrigger>
+                  <TabsTrigger value="logs" className="rounded-md">{t('workflow.logs')}</TabsTrigger>
+                  <TabsTrigger value="metadata" className="rounded-md">{t('workflow.metadata')}</TabsTrigger>
                 </TabsList>
               
-              <TabsContent value="commands" className="mt-4">
+              <TabsContent value="commands" className="mt-6">
                 <div className="code-panel max-h-64 overflow-y-auto">
                   {tool.commands.map((command, index) => <div key={index} className="mb-2 last:mb-0">
                       <span className="text-muted-foreground">$ </span>
@@ -128,7 +128,7 @@ export function WorkflowPanel({
                 </div>
               </TabsContent>
               
-              <TabsContent value="logs" className="mt-4">
+              <TabsContent value="logs" className="mt-6">
                 <div className="code-panel max-h-64 overflow-y-auto">
                   {tool.logs.map((log, index) => <div key={index} className="mb-1 text-sm last:mb-0">
                       <span className="text-muted-foreground">[{new Date().toLocaleTimeString()}] </span>
@@ -141,16 +141,16 @@ export function WorkflowPanel({
                 </div>
               </TabsContent>
               
-              <TabsContent value="metadata" className="mt-4">
-                <div className="grid grid-cols-2 gap-4">
-                  {Object.entries(tool.metadata).map(([key, value]) => <div key={key} className="p-3 bg-muted/30 rounded-lg">
-                      <div className="text-sm font-medium text-muted-foreground">{key}</div>
-                      <div className="text-sm text-foreground font-mono">{value}</div>
+              <TabsContent value="metadata" className="mt-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {Object.entries(tool.metadata).map(([key, value]) => <div key={key} className="p-3 bg-muted/20 rounded-lg border border-border/50">
+                      <div className="text-sm font-medium text-foreground">{key}</div>
+                      <div className="text-sm text-muted-foreground font-mono mt-1">{value}</div>
                     </div>)}
                 </div>
               </TabsContent>
               </Tabs>
-            </CardContent>
+            </div>
           </CollapsibleContent>
         </Collapsible>
       </Card>

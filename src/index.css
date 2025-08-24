@@ -81,41 +81,57 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 7%; /* #121212 */
-    --foreground: 0 0% 100%; /* #FFFFFF */
+    --background: 222 84% 4.9%; /* #0A0A0B */
+    --foreground: 210 40% 98%; /* #FAFAFA */
 
-    --card: 0 0% 12%; /* #1E1E1E */
-    --card-foreground: 0 0% 100%; /* #FFFFFF */
+    --card: 222 84% 4.9%; /* #0A0A0B */
+    --card-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --popover: 0 0% 12%; /* #1E1E1E */
-    --popover-foreground: 0 0% 100%; /* #FFFFFF */
+    --popover: 222 84% 4.9%; /* #0A0A0B */
+    --popover-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --primary: 217 92% 68%; /* Lighter #4880FF for dark mode */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --primary: 217 92% 63%; /* #4880FF */
+    --primary-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%; /* #FFFFFF */
+    --secondary: 217 32% 17.5%; /* #212A3E */
+    --secondary-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
+    --muted: 217 32% 17.5%; /* #212A3E */
+    --muted-foreground: 215 20.2% 65.1%; /* #9CA3AF */
 
-    --accent: 217 92% 68%; /* Lighter #4880FF for dark mode */
-    --accent-foreground: 0 0% 100%; /* #FFFFFF */
+    --accent: 217 32% 17.5%; /* #212A3E */
+    --accent-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 217 92% 68%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 217 32% 17.5%; /* #212A3E */
+    --input: 217 32% 17.5%; /* #212A3E */
+    --ring: 217 92% 63%; /* #4880FF */
+
+    /* Dark mode sidebar colors */
+    --sidebar-background: 222 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 92% 63%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 217 32% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 32% 17.5%;
+    --sidebar-ring: 217 92% 63%;
+
+    /* Dark mode custom colors */
+    --electric-blue: 217 92% 63%;
+    --neon-green: 142 91% 60%;
+    --warning-orange: 35 91% 60%;
+    --error-red: 0 84% 60%;
+    --success-green: 142 76% 36%;
+    
+    /* Dark mode status colors */
+    --status-running: 217 92% 63%;
+    --status-success: 142 76% 36%;
+    --status-warning: 35 91% 60%;
+    --status-error: 0 84% 60%;
+    --status-pending: 215 20% 65%;
   }
 }
 
@@ -130,45 +146,63 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  /* Status Indicators */
+  /* Modern Panel Design */
+  .modern-panel {
+    @apply bg-card border border-border rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl;
+  }
+
+  .modern-panel-header {
+    @apply p-6 border-b border-border/50 rounded-t-xl bg-gradient-to-r from-card to-muted/20;
+  }
+
+  .modern-panel-content {
+    @apply p-6 rounded-b-xl;
+  }
+
+  /* Status Indicators with modern design */
   .status-running {
-    @apply bg-status-running/20 text-status-running border-status-running/30;
+    @apply bg-status-running/10 text-status-running border border-status-running/20 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
   }
   
   .status-success {
-    @apply bg-status-success/20 text-status-success border-status-success/30;
+    @apply bg-status-success/10 text-status-success border border-status-success/20 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
   }
   
   .status-warning {
-    @apply bg-status-warning/20 text-status-warning border-status-warning/30;
+    @apply bg-status-warning/10 text-status-warning border border-status-warning/20 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
   }
   
   .status-error {
-    @apply bg-status-error/20 text-status-error border-status-error/30;
+    @apply bg-status-error/10 text-status-error border border-status-error/20 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
   }
   
   .status-pending {
-    @apply bg-status-pending/20 text-status-pending border-status-pending/30;
+    @apply bg-status-pending/10 text-status-pending border border-status-pending/20 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
   }
 
   /* Gradient Cards */
   .gradient-card {
-    background: var(--gradient-card);
-    box-shadow: var(--shadow-card);
+    @apply bg-gradient-to-br from-card via-card to-muted/20 border border-border/50 rounded-xl shadow-lg backdrop-blur-sm;
   }
 
   .gradient-border {
-    background: var(--gradient-border);
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
   }
 
   /* Glow Effects */
   .glow-primary {
-    box-shadow: var(--shadow-glow);
+    @apply shadow-lg;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.2), 0 8px 32px hsl(var(--primary) / 0.1);
   }
 
   /* Code/Log Styling */
   .code-panel {
-    @apply font-mono text-sm bg-muted/50 border border-border rounded-lg p-4;
+    @apply font-mono text-sm bg-muted/30 border border-border/50 rounded-xl p-4 backdrop-blur-sm;
+  }
+
+  /* Stats Card Design */
+  .stats-card {
+    @apply bg-gradient-to-br from-card to-muted/10 border border-border/50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 backdrop-blur-sm;
   }
 
   /* Tool Panel Animation */
@@ -194,10 +228,19 @@ All colors MUST be HSL.
 
   @keyframes pulseGlow {
     0%, 100% {
-      box-shadow: 0 0 20px hsl(217 91% 60% / 0.3);
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
     }
     50% {
-      box-shadow: 0 0 30px hsl(217 91% 60% / 0.6);
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
     }
+  }
+
+  /* Responsive utilities */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6;
+  }
+
+  .responsive-panel-grid {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6;
   }
 }
