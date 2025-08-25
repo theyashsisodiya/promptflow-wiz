@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { Bell, User, Moon, Sun, Globe, CheckCircle, XCircle, Clock, AlertTriangle } from "lucide-react";
+import { Bell, User, Globe, CheckCircle, XCircle, Clock, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTheme } from "@/hooks/useTheme";
 
 interface Notification {
   id: string;
@@ -57,7 +57,6 @@ const mockNotifications: Notification[] = [
 
 export function Header() {
   const { t, i18n } = useTranslation();
-  const { theme, setTheme } = useTheme();
   const [notifications, setNotifications] = useState(mockNotifications);
   
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -81,56 +80,47 @@ export function Header() {
     i18n.changeLanguage(lng);
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   return (
     <header className="h-16 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-50">
       <div className="flex items-center gap-4">
         <SidebarTrigger />
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Badge variant="outline" className="status-running">
-            2 {t('dashboard.activeWorkflows')}
+            2 Active Workflows
           </Badge>
           <Badge variant="outline" className="status-success">
-            12 {t('dashboard.completedToday')}
+            12 Completed Today
           </Badge>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         {/* Language Selector */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative rounded-xl">
               <Globe className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48 bg-popover/95 backdrop-blur-sm border-border/50">
-            <DropdownMenuLabel>{t('common.language')}</DropdownMenuLabel>
+          <DropdownMenuContent align="end" className="w-48 bg-popover/95 backdrop-blur-sm border-border/50 rounded-2xl">
+            <DropdownMenuLabel>Language</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => changeLanguage('en')}>
-              <span className="fi fi-us mr-2"></span>English
+            <DropdownMenuItem onClick={() => changeLanguage('en')} className="rounded-xl">
+              <span className="mr-2">🇺🇸</span>English
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => changeLanguage('es')}>
-              <span className="fi fi-es mr-2"></span>Español
+            <DropdownMenuItem onClick={() => changeLanguage('es')} className="rounded-xl">
+              <span className="mr-2">🇪🇸</span>Español
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => changeLanguage('hi')}>
-              <span className="fi fi-in mr-2"></span>हिन्दी
+            <DropdownMenuItem onClick={() => changeLanguage('hi')} className="rounded-xl">
+              <span className="mr-2">🇮🇳</span>हिन्दी
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Theme Toggle */}
-        <Button variant="ghost" size="icon" onClick={toggleTheme}>
-          {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-        </Button>
-
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative rounded-xl">
               <Bell className="h-4 w-4" />
               {unreadCount > 0 && (
                 <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-error-red text-white">
@@ -139,24 +129,24 @@ export function Header() {
               )}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80 bg-popover/95 backdrop-blur-sm border-border/50">
+          <DropdownMenuContent align="end" className="w-80 bg-popover/95 backdrop-blur-sm border-border/50 rounded-2xl">
             <DropdownMenuLabel className="flex items-center justify-between">
-              {t('notifications.title')}
-              <Button variant="ghost" size="sm" className="text-xs h-6">
-                {t('notifications.viewAll')}
+              Notifications
+              <Button variant="ghost" size="sm" className="text-xs h-6 rounded-lg">
+                View All
               </Button>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <ScrollArea className="h-64">
               {notifications.length === 0 ? (
                 <div className="p-4 text-center text-muted-foreground text-sm">
-                  {t('notifications.noNotifications')}
+                  No notifications
                 </div>
               ) : (
                 notifications.map((notification) => (
                   <DropdownMenuItem
                     key={notification.id}
-                    className={`p-3 cursor-pointer ${!notification.read ? 'bg-primary/5' : ''}`}
+                    className={`p-3 cursor-pointer rounded-xl ${!notification.read ? 'bg-primary/5' : ''}`}
                     onClick={() => markAsRead(notification.id)}
                   >
                     <div className="flex gap-3 w-full">
@@ -184,17 +174,17 @@ export function Header() {
         {/* User Menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="rounded-xl">
               <User className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 bg-popover/95 backdrop-blur-sm border-border/50">
+          <DropdownMenuContent align="end" className="w-56 bg-popover/95 backdrop-blur-sm border-border/50 rounded-2xl">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem className="rounded-xl">Profile</DropdownMenuItem>
+            <DropdownMenuItem className="rounded-xl">Settings</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Sign out</DropdownMenuItem>
+            <DropdownMenuItem className="rounded-xl">Sign out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

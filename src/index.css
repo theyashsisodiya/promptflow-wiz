@@ -3,140 +3,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Modern Dark Theme Design System with Purple/Indigo Gradients */
 
 @layer base {
   :root {
-    /* Light Mode - Enhanced with vibrant colors */
-    --background: 220 14% 98%; /* #FAFBFC */
-    --foreground: 222 84% 5%; /* #0A0A0B */
-
-    --card: 0 0% 100%; /* #FFFFFF */
-    --card-foreground: 222 84% 5%; /* #0A0A0B */
-
-    --popover: 0 0% 100%; /* #FFFFFF */
-    --popover-foreground: 222 84% 5%; /* #0A0A0B */
-
-    --primary: 217 92% 63%; /* #4880FF - Electric Blue */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF */
-
-    --secondary: 227 39% 96%; /* #F6F7FB */
-    --secondary-foreground: 222 84% 10%; /* #1A1A1D */
-
-    --muted: 227 39% 94%; /* #F0F1F5 */
-    --muted-foreground: 215 16% 47%; /* #6B7280 */
-
-    --accent: 217 92% 63%; /* #4880FF */
-    --accent-foreground: 0 0% 100%; /* #FFFFFF */
-
-    --destructive: 0 84% 60%; /* #F87171 */
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 13% 91%; /* #E5E7EB */
-    --input: 220 13% 91%; /* #E5E7EB */
-    --ring: 217 92% 63%; /* #4880FF */
-
-    /* Enhanced AIaaS Colors for Light Mode */
-    --electric-blue: 217 92% 63%; /* #4880FF */
-    --neon-green: 142 76% 50%; /* #10B981 */
-    --warning-orange: 35 91% 60%; /* #F59E0B */
-    --error-red: 0 84% 60%; /* #EF4444 */
-    --success-green: 142 76% 36%; /* #059669 */
-    
-    /* Status Colors - Light Mode */
-    --status-running: 217 92% 63%; /* #4880FF */
-    --status-success: 142 76% 36%; /* #059669 */
-    --status-warning: 35 91% 60%; /* #F59E0B */
-    --status-error: 0 84% 60%; /* #EF4444 */
-    --status-pending: 215 20% 65%; /* #9CA3AF */
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(217 92% 63%) 0%, hsl(142 76% 50%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(227 39% 96%) 100%);
-    --gradient-border: linear-gradient(90deg, hsl(217 92% 63%) 0%, hsl(142 76% 50%) 100%);
-    
-    /* Shadows */
-    --shadow-glow: 0 0 20px hsl(217 92% 63% / 0.3);
-    --shadow-card: 0 8px 32px hsl(222 84% 5% / 0.1);
-    --shadow-elevated: 0 20px 64px hsl(222 84% 5% / 0.15);
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 99%; /* #FCFCFC */
-    --sidebar-foreground: 222 84% 10%; /* #1A1A1D */
-    --sidebar-primary: 217 92% 63%; /* #4880FF */
-    --sidebar-primary-foreground: 0 0% 100%; /* #FFFFFF */
-    --sidebar-accent: 227 39% 96%; /* #F6F7FB */
-    --sidebar-accent-foreground: 222 84% 10%; /* #1A1A1D */
-    --sidebar-border: 220 13% 91%; /* #E5E7EB */
-    --sidebar-ring: 217 92% 63%; /* #4880FF */
-  }
-
-  .dark {
-    /* Dark Mode - Enhanced with vibrant colors */
-    --background: 222 84% 4.9%; /* #0A0A0B */
+    /* Dark Mode - Modern Purple/Indigo Theme */
+    --background: 220 13% 9%; /* #16181D */
     --foreground: 210 40% 98%; /* #FAFAFA */
 
-    --card: 217 32% 8%; /* #141925 */
+    --card: 220 13% 11%; /* #1C1F26 */
     --card-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --popover: 217 32% 8%; /* #141925 */
+    --popover: 220 13% 11%; /* #1C1F26 */
     --popover-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --primary: 217 92% 65%; /* #5B8BFF - Brighter for dark mode */
-    --primary-foreground: 222 84% 4.9%; /* #0A0A0B */
+    --primary: 262 83% 58%; /* #8B5CF6 - Purple */
+    --primary-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --secondary: 217 32% 12%; /* #1E2A3E */
+    --secondary: 220 13% 15%; /* #252930 */
     --secondary-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --muted: 217 32% 15%; /* #243141 */
+    --muted: 220 13% 15%; /* #252930 */
     --muted-foreground: 215 20% 65%; /* #9CA3AF */
 
-    --accent: 217 32% 15%; /* #243141 */
+    --accent: 237 83% 58%; /* #6366F1 - Indigo */
     --accent-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --destructive: 0 75% 65%; /* #FF6B6B */
+    --destructive: 0 84% 60%; /* #EF4444 */
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 32% 15%; /* #243141 */
-    --input: 217 32% 15%; /* #243141 */
-    --ring: 217 92% 65%; /* #5B8BFF */
+    --border: 220 13% 20%; /* #2D3136 */
+    --input: 220 13% 20%; /* #2D3136 */
+    --ring: 262 83% 58%; /* #8B5CF6 */
 
-    /* Enhanced AIaaS Colors for Dark Mode */
-    --electric-blue: 217 92% 65%; /* #5B8BFF */
+    /* Enhanced Colors for Modern UI */
+    --electric-blue: 237 83% 58%; /* #6366F1 */
     --neon-green: 142 76% 55%; /* #34D399 */
     --warning-orange: 35 91% 65%; /* #FBBF24 */
-    --error-red: 0 75% 65%; /* #FF6B6B */
+    --error-red: 0 84% 60%; /* #EF4444 */
     --success-green: 142 76% 45%; /* #10B981 */
     
-    /* Status Colors - Dark Mode */
-    --status-running: 217 92% 65%; /* #5B8BFF */
+    /* Status Colors */
+    --status-running: 237 83% 58%; /* #6366F1 */
     --status-success: 142 76% 45%; /* #10B981 */
     --status-warning: 35 91% 65%; /* #FBBF24 */
-    --status-error: 0 75% 65%; /* #FF6B6B */
+    --status-error: 0 84% 60%; /* #EF4444 */
     --status-pending: 215 20% 65%; /* #9CA3AF */
 
-    /* Dark mode sidebar colors */
-    --sidebar-background: 217 32% 6%; /* #0F1419 */
+    /* Sidebar Colors - Modern Purple Gradient */
+    --sidebar-background: 262 47% 11%; /* #1A1625 */
     --sidebar-foreground: 210 40% 98%; /* #FAFAFA */
-    --sidebar-primary: 217 92% 65%; /* #5B8BFF */
-    --sidebar-primary-foreground: 222 84% 4.9%; /* #0A0A0B */
-    --sidebar-accent: 217 32% 12%; /* #1E2A3E */
+    --sidebar-primary: 262 83% 58%; /* #8B5CF6 */
+    --sidebar-primary-foreground: 210 40% 98%; /* #FAFAFA */
+    --sidebar-accent: 262 50% 15%; /* #241B35 */
     --sidebar-accent-foreground: 210 40% 98%; /* #FAFAFA */
-    --sidebar-border: 217 32% 15%; /* #243141 */
-    --sidebar-ring: 217 92% 65%; /* #5B8BFF */
+    --sidebar-border: 262 40% 20%; /* #2D2440 */
+    --sidebar-ring: 262 83% 58%; /* #8B5CF6 */
 
-    /* Dark mode gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(217 92% 65%) 0%, hsl(142 76% 55%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(217 32% 8%) 0%, hsl(217 32% 12%) 100%);
-    --gradient-border: linear-gradient(90deg, hsl(217 92% 65%) 0%, hsl(142 76% 55%) 100%);
+    /* Modern Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(237 83% 58%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 13% 11%) 0%, hsl(220 13% 15%) 100%);
+    --gradient-sidebar: linear-gradient(180deg, hsl(262 47% 11%) 0%, hsl(262 40% 8%) 100%);
+    --gradient-border: linear-gradient(90deg, hsl(262 83% 58%) 0%, hsl(237 83% 58%) 100%);
     
-    /* Dark mode shadows */
-    --shadow-glow: 0 0 20px hsl(217 92% 65% / 0.4);
-    --shadow-card: 0 8px 32px hsl(222 84% 4.9% / 0.6);
-    --shadow-elevated: 0 20px 64px hsl(222 84% 4.9% / 0.8);
+    /* Modern Shadows */
+    --shadow-glow: 0 0 20px hsl(262 83% 58% / 0.4);
+    --shadow-card: 0 8px 32px hsl(220 13% 4% / 0.6);
+    --shadow-elevated: 0 20px 64px hsl(220 13% 4% / 0.8);
+
+    --radius: 1rem; /* More rounded by default */
   }
 }
 
@@ -147,137 +82,116 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background: linear-gradient(135deg, hsl(220 13% 9%) 0%, hsl(220 13% 7%) 100%);
   }
 }
 
 @layer components {
-  /* Modern Panel Design with enhanced colors */
+  /* Modern Panel Design */
   .modern-panel {
-    @apply bg-card border border-border rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl;
-    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted) / 0.3));
+    @apply bg-card border border-border rounded-3xl shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl;
+    background: var(--gradient-card);
   }
 
   .modern-panel-header {
-    @apply p-6 border-b border-border/50 rounded-t-xl;
-    background: linear-gradient(to right, hsl(var(--card)), hsl(var(--muted) / 0.2));
+    @apply p-8 border-b border-border/50 rounded-t-3xl;
+    background: linear-gradient(to right, hsl(var(--card)), hsl(var(--muted) / 0.3));
   }
 
   .modern-panel-content {
-    @apply p-6 rounded-b-xl;
+    @apply p-8 rounded-b-3xl;
   }
 
   /* Enhanced Status Indicators */
   .status-running {
-    @apply bg-status-running/15 text-status-running border border-status-running/30 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-running) / 0.2);
+    @apply bg-status-running/15 text-status-running border border-status-running/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
+    box-shadow: 0 0 15px hsl(var(--status-running) / 0.3);
   }
   
   .status-success {
-    @apply bg-status-success/15 text-status-success border border-status-success/30 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-success) / 0.2);
+    @apply bg-status-success/15 text-status-success border border-status-success/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
+    box-shadow: 0 0 15px hsl(var(--status-success) / 0.3);
   }
   
   .status-warning {
-    @apply bg-status-warning/15 text-status-warning border border-status-warning/30 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-warning) / 0.2);
+    @apply bg-status-warning/15 text-status-warning border border-status-warning/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
+    box-shadow: 0 0 15px hsl(var(--status-warning) / 0.3);
   }
   
   .status-error {
-    @apply bg-status-error/15 text-status-error border border-status-error/30 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-error) / 0.2);
+    @apply bg-status-error/15 text-status-error border border-status-error/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
+    box-shadow: 0 0 15px hsl(var(--status-error) / 0.3);
   }
   
   .status-pending {
-    @apply bg-status-pending/15 text-status-pending border border-status-pending/30 rounded-full px-3 py-1 text-sm font-medium backdrop-blur-sm;
+    @apply bg-status-pending/15 text-status-pending border border-status-pending/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
   }
 
   /* Enhanced Gradient Cards */
   .gradient-card {
-    @apply border border-border/50 rounded-xl shadow-lg backdrop-blur-sm;
+    @apply border border-border/50 rounded-3xl shadow-lg backdrop-blur-sm;
     background: var(--gradient-card);
   }
 
-  .gradient-border {
-    background: var(--gradient-border);
-  }
-
-  /* Enhanced Glow Effects */
-  .glow-primary {
-    box-shadow: var(--shadow-glow), var(--shadow-card);
-  }
-
-  /* Enhanced Code/Log Styling */
-  .code-panel {
-    @apply font-mono text-sm border border-border/50 rounded-xl p-4 backdrop-blur-sm;
-    background: linear-gradient(145deg, hsl(var(--muted) / 0.5), hsl(var(--muted) / 0.3));
+  .gradient-sidebar {
+    background: var(--gradient-sidebar);
   }
 
   /* Enhanced Stats Card Design */
   .stats-card {
-    @apply border border-border/50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 backdrop-blur-sm;
+    @apply border border-border/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm;
     background: var(--gradient-card);
   }
 
   .stats-card:hover {
     box-shadow: var(--shadow-elevated);
+    transform: translateY(-4px);
+  }
+
+  /* Modern Pricing Cards */
+  .pricing-card {
+    @apply border border-border/50 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm p-8;
+    background: var(--gradient-card);
+  }
+
+  .pricing-card-featured {
+    @apply border-2;
+    border-image: var(--gradient-border) 1;
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Modern Template Cards */
+  .template-card {
+    @apply border border-border/50 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 backdrop-blur-sm;
+    background: var(--gradient-card);
+  }
+
+  .template-card:hover {
     transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
   }
 
-  /* Tool Panel Animation with glow */
-  .tool-panel-enter {
-    animation: slideInFromRight 0.5s ease-out, glowIn 0.8s ease-out;
+  /* Enhanced Code/Log Styling */
+  .code-panel {
+    @apply font-mono text-sm border border-border/50 rounded-2xl p-6 backdrop-blur-sm;
+    background: linear-gradient(145deg, hsl(var(--muted) / 0.5), hsl(var(--muted) / 0.3));
   }
 
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes glowIn {
-    from {
-      box-shadow: none;
-    }
-    to {
-      box-shadow: var(--shadow-card);
-    }
-  }
-
-  /* Enhanced Pulse Animation for Active States */
-  .pulse-glow {
-    animation: pulseGlow 2s ease-in-out infinite;
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% {
-      box-shadow: var(--shadow-glow);
-    }
-    50% {
-      box-shadow: 0 0 30px hsl(var(--primary) / 0.6), var(--shadow-card);
-    }
-  }
-
-  /* Responsive utilities */
-  .responsive-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6;
-  }
-
-  .responsive-panel-grid {
-    @apply grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6;
-  }
-
-  /* Enhanced button hover effects */
+  /* Enhanced button styles */
   .modern-button {
-    @apply transition-all duration-200 hover:shadow-lg hover:scale-105;
+    @apply transition-all duration-300 hover:shadow-lg hover:scale-105 rounded-xl;
   }
 
   .modern-button:hover {
     box-shadow: 0 10px 25px hsl(var(--primary) / 0.3);
+  }
+
+  /* Responsive utilities */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8;
+  }
+
+  .responsive-panel-grid {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8;
   }
 }
