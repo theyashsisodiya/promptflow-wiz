@@ -3,27 +3,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Modern Dark Theme Design System with Purple/Indigo Gradients */
+/* Enhanced Dark Theme Design System with Purple/Indigo Gradients */
 
 @layer base {
   :root {
-    /* Dark Mode - Modern Purple/Indigo Theme */
-    --background: 220 13% 9%; /* #16181D */
+    /* Dark Mode - Enhanced Purple/Indigo Theme */
+    --background: 220 13% 8%; /* #14161A - Darker for better contrast */
     --foreground: 210 40% 98%; /* #FAFAFA */
 
-    --card: 220 13% 11%; /* #1C1F26 */
+    --card: 220 13% 10%; /* #1A1D23 - Slightly lighter than background */
     --card-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --popover: 220 13% 11%; /* #1C1F26 */
+    --popover: 220 13% 10%; /* #1A1D23 */
     --popover-foreground: 210 40% 98%; /* #FAFAFA */
 
     --primary: 262 83% 58%; /* #8B5CF6 - Purple */
     --primary-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --secondary: 220 13% 15%; /* #252930 */
+    --secondary: 220 13% 14%; /* #232731 */
     --secondary-foreground: 210 40% 98%; /* #FAFAFA */
 
-    --muted: 220 13% 15%; /* #252930 */
+    --muted: 220 13% 14%; /* #232731 */
     --muted-foreground: 215 20% 65%; /* #9CA3AF */
 
     --accent: 237 83% 58%; /* #6366F1 - Indigo */
@@ -32,8 +32,8 @@
     --destructive: 0 84% 60%; /* #EF4444 */
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 20%; /* #2D3136 */
-    --input: 220 13% 20%; /* #2D3136 */
+    --border: 220 13% 18%; /* #2A2D35 - More visible borders */
+    --input: 220 13% 18%; /* #2A2D35 */
     --ring: 262 83% 58%; /* #8B5CF6 */
 
     /* Enhanced Colors for Modern UI */
@@ -50,51 +50,78 @@
     --status-error: 0 84% 60%; /* #EF4444 */
     --status-pending: 215 20% 65%; /* #9CA3AF */
 
-    /* Sidebar Colors - Modern Purple Gradient */
-    --sidebar-background: 262 47% 11%; /* #1A1625 */
+    /* Sidebar Colors - Enhanced Purple Gradient */
+    --sidebar-background: 262 47% 10%; /* #191529 - Darker for better separation */
     --sidebar-foreground: 210 40% 98%; /* #FAFAFA */
     --sidebar-primary: 262 83% 58%; /* #8B5CF6 */
     --sidebar-primary-foreground: 210 40% 98%; /* #FAFAFA */
-    --sidebar-accent: 262 50% 15%; /* #241B35 */
+    --sidebar-accent: 262 50% 14%; /* #221A33 */
     --sidebar-accent-foreground: 210 40% 98%; /* #FAFAFA */
-    --sidebar-border: 262 40% 20%; /* #2D2440 */
+    --sidebar-border: 262 40% 18%; /* #2A2238 */
     --sidebar-ring: 262 83% 58%; /* #8B5CF6 */
 
-    /* Modern Gradients */
+    /* Enhanced Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(237 83% 58%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(220 13% 11%) 0%, hsl(220 13% 15%) 100%);
-    --gradient-sidebar: linear-gradient(180deg, hsl(262 47% 11%) 0%, hsl(262 40% 8%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 13% 10%) 0%, hsl(220 13% 12%) 100%);
+    --gradient-sidebar: linear-gradient(180deg, hsl(262 47% 10%) 0%, hsl(262 40% 7%) 100%);
     --gradient-border: linear-gradient(90deg, hsl(262 83% 58%) 0%, hsl(237 83% 58%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 45%) 0%, hsl(142 76% 55%) 100%);
+    --gradient-warning: linear-gradient(135deg, hsl(35 91% 65%) 0%, hsl(35 91% 75%) 100%);
+    --gradient-error: linear-gradient(135deg, hsl(0 84% 60%) 0%, hsl(0 84% 70%) 100%);
     
-    /* Modern Shadows */
-    --shadow-glow: 0 0 20px hsl(262 83% 58% / 0.4);
-    --shadow-card: 0 8px 32px hsl(220 13% 4% / 0.6);
-    --shadow-elevated: 0 20px 64px hsl(220 13% 4% / 0.8);
+    /* Enhanced Shadows */
+    --shadow-glow: 0 0 30px hsl(262 83% 58% / 0.4);
+    --shadow-card: 0 10px 40px hsl(220 13% 4% / 0.7);
+    --shadow-elevated: 0 25px 80px hsl(220 13% 4% / 0.9);
+    --shadow-success: 0 0 20px hsl(142 76% 45% / 0.3);
+    --shadow-warning: 0 0 20px hsl(35 91% 65% / 0.3);
+    --shadow-error: 0 0 20px hsl(0 84% 60% / 0.3);
 
-    --radius: 1rem; /* More rounded by default */
+    --radius: 1.25rem; /* More rounded corners */
   }
 }
 
 @layer base {
   * {
-    @apply border-border transition-colors duration-200;
+    @apply border-border transition-all duration-200;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    background: linear-gradient(135deg, hsl(220 13% 9%) 0%, hsl(220 13% 7%) 100%);
+    @apply bg-background text-foreground font-sans antialiased;
+    background: linear-gradient(135deg, hsl(220 13% 8%) 0%, hsl(220 13% 6%) 100%);
+    min-height: 100vh;
+  }
+
+  /* Enhanced scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.8) 0%, hsl(var(--accent) / 0.8) 100%);
   }
 }
 
 @layer components {
-  /* Modern Panel Design */
+  /* Enhanced Panel Design */
   .modern-panel {
-    @apply bg-card border border-border rounded-3xl shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl;
+    @apply bg-card border border-border/50 rounded-3xl shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:border-primary/30;
     background: var(--gradient-card);
   }
 
   .modern-panel-header {
-    @apply p-8 border-b border-border/50 rounded-t-3xl;
+    @apply p-8 border-b border-border/30 rounded-t-3xl;
     background: linear-gradient(to right, hsl(var(--card)), hsl(var(--muted) / 0.3));
   }
 
@@ -105,22 +132,22 @@
   /* Enhanced Status Indicators */
   .status-running {
     @apply bg-status-running/15 text-status-running border border-status-running/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-running) / 0.3);
+    box-shadow: var(--shadow-glow);
   }
   
   .status-success {
     @apply bg-status-success/15 text-status-success border border-status-success/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-success) / 0.3);
+    box-shadow: var(--shadow-success);
   }
   
   .status-warning {
     @apply bg-status-warning/15 text-status-warning border border-status-warning/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-warning) / 0.3);
+    box-shadow: var(--shadow-warning);
   }
   
   .status-error {
     @apply bg-status-error/15 text-status-error border border-status-error/30 rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm;
-    box-shadow: 0 0 15px hsl(var(--status-error) / 0.3);
+    box-shadow: var(--shadow-error);
   }
   
   .status-pending {
@@ -129,29 +156,40 @@
 
   /* Enhanced Gradient Cards */
   .gradient-card {
-    @apply border border-border/50 rounded-3xl shadow-lg backdrop-blur-sm;
+    @apply border border-border/50 rounded-3xl shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl;
     background: var(--gradient-card);
+  }
+
+  .gradient-card:hover {
+    box-shadow: var(--shadow-elevated);
   }
 
   .gradient-sidebar {
     background: var(--gradient-sidebar);
+    border-right: 1px solid hsl(var(--sidebar-border));
   }
 
   /* Enhanced Stats Card Design */
   .stats-card {
-    @apply border border-border/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm;
+    @apply border border-border/50 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm;
     background: var(--gradient-card);
   }
 
   .stats-card:hover {
     box-shadow: var(--shadow-elevated);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
+    border-color: hsl(var(--primary) / 0.3);
   }
 
-  /* Modern Pricing Cards */
+  /* Enhanced Pricing Cards */
   .pricing-card {
     @apply border border-border/50 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm p-8;
     background: var(--gradient-card);
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
   }
 
   .pricing-card-featured {
@@ -160,15 +198,16 @@
     box-shadow: var(--shadow-glow);
   }
 
-  /* Modern Template Cards */
+  /* Enhanced Template Cards */
   .template-card {
-    @apply border border-border/50 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 backdrop-blur-sm;
+    @apply border border-border/50 rounded-3xl shadow-md hover:shadow-lg transition-all duration-300 backdrop-blur-sm;
     background: var(--gradient-card);
   }
 
   .template-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-card);
+    border-color: hsl(var(--primary) / 0.3);
   }
 
   /* Enhanced Code/Log Styling */
@@ -179,11 +218,39 @@
 
   /* Enhanced button styles */
   .modern-button {
-    @apply transition-all duration-300 hover:shadow-lg hover:scale-105 rounded-xl;
+    @apply transition-all duration-300 hover:shadow-lg hover:scale-105 rounded-2xl;
   }
 
   .modern-button:hover {
-    box-shadow: 0 10px 25px hsl(var(--primary) / 0.3);
+    box-shadow: 0 15px 35px hsl(var(--primary) / 0.4);
+  }
+
+  /* Enhanced form elements */
+  .modern-input {
+    @apply rounded-2xl border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-200;
+  }
+
+  .modern-input:focus {
+    @apply border-primary/50 ring-2 ring-primary/20;
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+  }
+
+  /* Enhanced animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  /* Glass morphism effect */
+  .glass-effect {
+    @apply backdrop-blur-xl bg-card/30 border border-border/20;
   }
 
   /* Responsive utilities */
@@ -192,6 +259,49 @@
   }
 
   .responsive-panel-grid {
-    @apply grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8;
+    @apply grid grid-cols-1 xl:grid-cols-3 gap-8;
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Enhanced focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50;
+}
+
+/* Enhanced disabled states */
+.disabled-state {
+  @apply opacity-50 cursor-not-allowed pointer-events-none;
 }
