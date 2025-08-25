@@ -1,357 +1,225 @@
 
 import { useState } from "react";
-import { useTranslation } from 'react-i18next';
-import { PlayCircle, Plus, Zap, TrendingUp, Clock, CheckCircle, AlertTriangle, Users, Server, GitBranch } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Activity, Clock, CheckCircle, AlertTriangle, Zap, Play, Pause, Settings, GitBranch, Server, Database, Shield } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { WorkflowPanel } from "@/components/WorkflowPanel";
-import { ChatPanel } from "@/components/ChatPanel";
-
-interface Tool {
-  name: string;
-  status: 'pending' | 'running' | 'success' | 'error' | 'warning';
-  progress: number;
-  commands: string[];
-  logs: string[];
-  metadata: Record<string, string>;
-  error?: string;
-}
-
-const mockTools: Tool[] = [
-  {
-    name: "GitHub",
-    status: "success" as const,
-    progress: 100,
-    commands: [
-      "git clone https://github.com/user/repo.git",
-      "git checkout -b feature/deployment"
-    ],
-    logs: [
-      "Repository cloned successfully",
-      "Switched to new branch 'feature/deployment'", 
-      "Latest commit: a1b2c3d - Add deployment configuration",
-      "Repository ready for CI/CD pipeline"
-    ],
-    metadata: {
-      "Repository": "user/awesome-app",
-      "Branch": "feature/deployment",
-      "Last Commit": "a1b2c3d",
-      "Contributors": "5"
-    }
-  },
-  {
-    name: "Docker",
-    status: "success" as const,
-    progress: 100,
-    commands: [
-      "docker build -t myapp:latest .",
-      "docker tag myapp:latest registry.io/myapp:v1.2.3"
-    ],
-    logs: [
-      "Building image myapp:latest",
-      "Step 1/8 : FROM node:18-alpine", 
-      "Step 8/8 : CMD [\"npm\", \"start\"]",
-      "Successfully built 8f7a9b3c4d5e",
-      "Successfully tagged myapp:latest"
-    ],
-    metadata: {
-      "Image ID": "8f7a9b3c4d5e",
-      "Base Image": "node:18-alpine", 
-      "Size": "127 MB",
-      "Created": "2 minutes ago"
-    }
-  },
-  {
-    name: "Jenkins",
-    status: "running" as const,
-    progress: 65,
-    commands: [
-      "jenkins-cli build deploy-pipeline",
-      "jenkins-cli console deploy-pipeline"
-    ],
-    logs: [
-      "Starting pipeline execution",
-      "Fetching source from Git repository",
-      "Running test suite... ✓ 45/45 tests passed", 
-      "Building Docker image...",
-      "Preparing deployment artifacts..."
-    ],
-    metadata: {
-      "Build Number": "#127",
-      "Branch": "feature/deployment",
-      "Commit": "a1b2c3d",
-      "Triggered By": "AI Assistant"
-    }
-  },
-  {
-    name: "Kubernetes", 
-    status: "pending" as const,
-    progress: 0,
-    commands: [
-      "kubectl apply -f deployment.yaml",
-      "kubectl set image deployment/myapp myapp=registry.io/myapp:v1.2.3"
-    ],
-    logs: [
-      "Waiting for Jenkins pipeline to complete...",
-      "Deployment configuration validated",
-      "Kubernetes cluster connection established",
-      "Preparing rolling update strategy"
-    ],
-    metadata: {
-      "Namespace": "production",
-      "Deployment": "myapp", 
-      "Replicas": "3",
-      "Strategy": "RollingUpdate"
-    }
-  },
-  {
-    name: "ArgoCD",
-    status: "pending" as const,
-    progress: 0,
-    commands: [
-      "argocd app sync myapp",
-      "argocd app wait myapp --health"
-    ],
-    logs: [
-      "Waiting for Kubernetes deployment...",
-      "GitOps repository synchronized",
-      "Application configuration ready",
-      "Monitoring deployment health"
-    ],
-    metadata: {
-      "Application": "myapp",
-      "Repository": "https://github.com/user/k8s-manifests",
-      "Target Revision": "HEAD",
-      "Sync Policy": "Automated"
-    }
-  }
-];
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 const Dashboard = () => {
-  const { t } = useTranslation();
-  const [tools, setTools] = useState(mockTools);
-  const [newPrompt, setNewPrompt] = useState("");
+  const [workflows] = useState([
+    {
+      id: 1,
+      name: "Production Deploy - Node.js API",
+      status: "running",
+      progress: 65,
+      duration: "4m 32s",
+      steps: ["Build", "Test", "Deploy", "Verify"]
+    },
+    {
+      id: 2,
+      name: "Database Migration - PostgreSQL",
+      status: "completed",
+      progress: 100,
+      duration: "2m 15s",
+      steps: ["Backup", "Migrate", "Verify", "Cleanup"]
+    },
+    {
+      id: 3,
+      name: "Security Scan - Docker Images",
+      status: "pending",
+      progress: 0,
+      duration: "0m 0s",
+      steps: ["Scan", "Analyze", "Report", "Remediate"]
+    }
+  ]);
 
-  const handlePromptSubmit = (prompt: string) => {
-    console.log("New workflow prompt:", prompt);
-    // Here you would typically start a new workflow
+  const [integrations] = useState([
+    { name: "GitHub", status: "connected", icon: "🐙", color: "bg-emerald-500/20 text-emerald-400" },
+    { name: "Docker", status: "connected", icon: "🐳", color: "bg-blue-500/20 text-blue-400" },
+    { name: "AWS", status: "connected", icon: "☁️", color: "bg-orange-500/20 text-orange-400" },
+    { name: "Jenkins", status: "connected", icon: "⚙️", color: "bg-red-500/20 text-red-400" },
+    { name: "Kubernetes", status: "connected", icon: "☸️", color: "bg-purple-500/20 text-purple-400" },
+    { name: "Terraform", status: "connected", icon: "🏗️", color: "bg-violet-500/20 text-violet-400" }
+  ]);
+
+  const stats = [
+    { title: "Active Workflows", value: "12", change: "+3", icon: Activity, color: "text-emerald-400" },
+    { title: "Deployments Today", value: "24", change: "+8", icon: Zap, color: "text-blue-400" },
+    { title: "Success Rate", value: "98.5%", change: "+2.1%", icon: CheckCircle, color: "text-purple-400" },
+    { title: "Avg Deploy Time", value: "3m 42s", change: "-1m", icon: Clock, color: "text-orange-400" }
+  ];
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'running': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+      case 'completed': return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+      case 'pending': return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
+      case 'failed': return 'bg-red-500/20 text-red-400 border-red-500/30';
+      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+    }
   };
 
-  const handleEditTool = (toolName: string) => {
-    console.log("Edit tool:", toolName);
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'running': return <Play className="h-4 w-4" />;
+      case 'completed': return <CheckCircle className="h-4 w-4" />;
+      case 'pending': return <Clock className="h-4 w-4" />;
+      case 'failed': return <AlertTriangle className="h-4 w-4" />;
+      default: return <Pause className="h-4 w-4" />;
+    }
   };
-
-  const handleRerunTool = (toolName: string) => {
-    console.log("Rerun tool:", toolName);
-  };
-
-  const handleAiRetry = (toolName: string) => {
-    console.log("AI retry for:", toolName);
-    setTools(prev => prev.map(tool => 
-      tool.name === toolName 
-        ? { ...tool, status: 'running' as const, progress: 0 }
-        : tool
-    ));
-  };
-
-  const handlePromptEdit = (toolName: string, prompt: string) => {
-    console.log("Prompt edit for:", toolName, prompt);
-    setTools(prev => prev.map(tool => 
-      tool.name === toolName 
-        ? { ...tool, status: 'running' as const, progress: 0 }
-        : tool
-    ));
-  };
-
-  const activeWorkflows = tools.filter(tool => tool.status === 'running').length;
-  const completedToday = 15;
-  const successRate = 98.7;
-  const avgDeployTime = "3.8m";
-  const totalProjects = 24;
-  const activeTeamMembers = 8;
 
   return (
-    <div className="space-y-8">
-      {/* Enhanced Header Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-        <Card className="stats-card group hover:scale-[1.02] transition-all duration-300">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-sm font-medium text-foreground">Active Workflows</CardTitle>
-            <div className="p-3 rounded-2xl bg-status-running/20 group-hover:bg-status-running/30 transition-colors">
-              <PlayCircle className="h-5 w-5 text-status-running" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-status-running to-primary bg-clip-text text-transparent">
-              {activeWorkflows}
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">Running right now</p>
-          </CardContent>
-        </Card>
-
-        <Card className="stats-card group hover:scale-[1.02] transition-all duration-300">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-sm font-medium text-foreground">Completed Today</CardTitle>
-            <div className="p-3 rounded-2xl bg-status-success/20 group-hover:bg-status-success/30 transition-colors">
-              <CheckCircle className="h-5 w-5 text-status-success" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-status-success to-accent bg-clip-text text-transparent">
-              {completedToday}
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">+3 from yesterday</p>
-          </CardContent>
-        </Card>
-
-        <Card className="stats-card group hover:scale-[1.02] transition-all duration-300">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-sm font-medium text-foreground">Success Rate</CardTitle>
-            <div className="p-3 rounded-2xl bg-primary/20 group-hover:bg-primary/30 transition-colors">
-              <TrendingUp className="h-5 w-5 text-primary" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              {successRate}%
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">Last 30 days</p>
-          </CardContent>
-        </Card>
-
-        <Card className="stats-card group hover:scale-[1.02] transition-all duration-300">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-sm font-medium text-foreground">Avg Deploy Time</CardTitle>
-            <div className="p-3 rounded-2xl bg-accent/20 group-hover:bg-accent/30 transition-colors">
-              <Clock className="h-5 w-5 text-accent" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-              {avgDeployTime}
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">-45s from last week</p>
-          </CardContent>
-        </Card>
-
-        <Card className="stats-card group hover:scale-[1.02] transition-all duration-300">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-sm font-medium text-foreground">Total Projects</CardTitle>
-            <div className="p-3 rounded-2xl bg-warning-orange/20 group-hover:bg-warning-orange/30 transition-colors">
-              <Server className="h-5 w-5 text-warning-orange" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-warning-orange to-primary bg-clip-text text-transparent">
-              {totalProjects}
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">+2 this month</p>
-          </CardContent>
-        </Card>
-
-        <Card className="stats-card group hover:scale-[1.02] transition-all duration-300">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-            <CardTitle className="text-sm font-medium text-foreground">Team Members</CardTitle>
-            <div className="p-3 rounded-2xl bg-neon-green/20 group-hover:bg-neon-green/30 transition-colors">
-              <Users className="h-5 w-5 text-neon-green" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-neon-green to-accent bg-clip-text text-transparent">
-              {activeTeamMembers}
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">Active this week</p>
-          </CardContent>
-        </Card>
+    <div className="space-y-8 max-w-full">
+      {/* Header */}
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              DevOps Dashboard
+            </h1>
+            <p className="text-muted-foreground mt-3 text-lg">
+              Monitor and manage your infrastructure workflows in real-time
+            </p>
+          </div>
+          <div className="flex items-center gap-4">
+            <Badge variant="outline" className="status-success text-base px-4 py-2">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2"></div>
+              All Systems Operational
+            </Badge>
+          </div>
+        </div>
       </div>
 
-      {/* Enhanced Quick Start */}
-      <Card className="modern-panel border-border/30 hover:border-primary/30 transition-all duration-300">
-        <div className="modern-panel-header bg-gradient-to-r from-card to-muted/30">
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent">
-              <Zap className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <div>
-              <CardTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                AI-Powered Quick Start
-              </CardTitle>
-              <CardDescription className="text-muted-foreground mt-2 text-lg">
-                Describe your deployment workflow and let our AI orchestrate the tools automatically
-              </CardDescription>
-            </div>
-          </div>
-        </div>
-        <div className="modern-panel-content">
-          <div className="flex flex-col lg:flex-row gap-6">
-            <Input
-              placeholder="Deploy my React app to production with Docker, run tests, and set up monitoring..."
-              value={newPrompt}
-              onChange={(e) => setNewPrompt(e.target.value)}
-              className="flex-1 bg-background border-border/50 rounded-2xl h-14 text-base px-6"
-            />
-            <Button 
-              onClick={() => handlePromptSubmit(newPrompt)}
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground rounded-2xl px-8 h-14 text-base font-medium whitespace-nowrap modern-button"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Start AI Workflow
-            </Button>
-          </div>
-          
-          {/* Quick Actions */}
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Badge variant="outline" className="text-sm px-4 py-2 rounded-full hover:bg-primary/10 cursor-pointer transition-colors">
-              <GitBranch className="w-4 h-4 mr-2" />
-              Deploy to staging
-            </Badge>
-            <Badge variant="outline" className="text-sm px-4 py-2 rounded-full hover:bg-primary/10 cursor-pointer transition-colors">
-              <Server className="w-4 h-4 mr-2" />
-              Scale production
-            </Badge>
-            <Badge variant="outline" className="text-sm px-4 py-2 rounded-full hover:bg-primary/10 cursor-pointer transition-colors">
-              <AlertTriangle className="w-4 h-4 mr-2" />
-              Rollback deployment
-            </Badge>
-          </div>
-        </div>
-      </Card>
+      {/* Stats Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat, index) => (
+          <Card key={index} className="gradient-card border-border/30 hover:border-primary/30 transition-all duration-300 hover:shadow-xl">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
+                  <p className="text-3xl font-bold text-foreground mt-2">{stat.value}</p>
+                  <p className={`text-sm mt-1 ${stat.color}`}>{stat.change} from yesterday</p>
+                </div>
+                <div className={`p-3 rounded-2xl bg-muted/30`}>
+                  <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        {/* Workflow Panels */}
-        <div className="xl:col-span-2 space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h2 className="text-3xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Current Workflow
-              </h2>
-              <p className="text-muted-foreground mt-1">AI-orchestrated deployment pipeline</p>
-            </div>
-            <Badge variant="outline" className="status-running self-start sm:self-center text-base px-4 py-2">
-              {tools.length} Tools in Pipeline
-            </Badge>
-          </div>
-          
-          <div className="space-y-6">
-            {tools.map((tool, index) => (
-              <WorkflowPanel
-                key={tool.name}
-                tool={tool}
-                onEdit={() => handleEditTool(tool.name)}
-                onRerun={() => handleRerunTool(tool.name)}
-                onAiRetry={() => handleAiRetry(tool.name)}
-                onPromptEdit={(prompt) => handlePromptEdit(tool.name, prompt)}
-              />
-            ))}
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Active Workflows */}
+        <div className="lg:col-span-2">
+          <Card className="gradient-card border-border/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3">
+                <Activity className="h-5 w-5 text-primary" />
+                Active Workflows
+              </CardTitle>
+              <CardDescription>
+                Real-time status of your running automation workflows
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {workflows.map((workflow) => (
+                <div key={workflow.id} className="p-4 rounded-2xl bg-muted/30 hover:bg-muted/40 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        {getStatusIcon(workflow.status)}
+                        <h4 className="font-semibold text-foreground">{workflow.name}</h4>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge className={`${getStatusColor(workflow.status)} border`}>
+                        {workflow.status}
+                      </Badge>
+                      <span className="text-sm text-muted-foreground">{workflow.duration}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <Progress value={workflow.progress} className="h-2" />
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {workflow.steps.map((step, index) => (
+                        <Badge 
+                          key={index} 
+                          variant="outline" 
+                          className={`text-xs rounded-full ${
+                            index < Math.floor(workflow.progress / 25) ? 'bg-primary/20 text-primary border-primary/30' : 'border-border/50'
+                          }`}
+                        >
+                          {step}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Enhanced Chat Panel */}
-        <div className="xl:col-span-1">
-          <ChatPanel onPromptSubmit={handlePromptSubmit} />
+        {/* Connected Integrations */}
+        <div className="space-y-6">
+          <Card className="gradient-card border-border/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3">
+                <Zap className="h-5 w-5 text-accent" />
+                Connected Tools
+              </CardTitle>
+              <CardDescription>
+                Your integrated DevOps tools and services
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {integrations.map((integration, index) => (
+                <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-muted/20 hover:bg-muted/30 transition-all duration-200">
+                  <div className="flex items-center gap-3">
+                    <div className="text-2xl">{integration.icon}</div>
+                    <span className="font-medium text-foreground">{integration.name}</span>
+                  </div>
+                  <Badge className={integration.color} variant="outline">
+                    {integration.status}
+                  </Badge>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          {/* Quick Actions */}
+          <Card className="gradient-card border-border/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3">
+                <Settings className="h-5 w-5 text-primary" />
+                Quick Actions
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <Button className="w-full justify-start gap-3 h-12 rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 hover:from-primary/30 hover:to-accent/30 border border-primary/30">
+                <GitBranch className="h-4 w-4" />
+                Deploy Latest Build
+              </Button>
+              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10">
+                <Server className="h-4 w-4" />
+                Scale Services
+              </Button>
+              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10">
+                <Database className="h-4 w-4" />
+                Backup Database
+              </Button>
+              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10">
+                <Shield className="h-4 w-4" />
+                Security Scan
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

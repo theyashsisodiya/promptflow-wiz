@@ -61,25 +61,28 @@ export function AppSidebar() {
       : "hover:bg-sidebar-accent/50 hover:text-sidebar-foreground text-sidebar-foreground/80";
 
   return (
-    <Sidebar className={collapsed ? "w-20" : "w-72"} collapsible="icon">
+    <Sidebar 
+      className={`${collapsed ? "w-16" : "w-72"} transition-all duration-300`} 
+      collapsible="icon"
+    >
       <SidebarContent className="gradient-sidebar border-r border-sidebar-border">
         {/* Logo Section */}
-        <div className="p-6 border-b border-sidebar-border/30">
+        <div className={`${collapsed ? "p-3" : "p-6"} border-b border-sidebar-border/30 transition-all duration-300`}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
               <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
             {!collapsed && (
-              <div>
-                <h1 className="text-xl font-bold text-sidebar-foreground">AIaaS</h1>
-                <p className="text-sm text-sidebar-foreground/70">DevOps Platform</p>
+              <div className="min-w-0">
+                <h1 className="text-xl font-bold text-sidebar-foreground truncate">AIaaS</h1>
+                <p className="text-sm text-sidebar-foreground/70 truncate">DevOps Platform</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Main Navigation */}
-        <div className="flex-1 px-4 py-6">
+        <div className={`flex-1 ${collapsed ? "px-2" : "px-4"} py-6 transition-all duration-300`}>
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu className="space-y-2">
@@ -89,11 +92,12 @@ export function AppSidebar() {
                       <NavLink 
                         to={item.url} 
                         end 
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${getNavCls({ isActive: isActive(item.url) })}`}
+                        className={`flex items-center ${collapsed ? "justify-center px-3 py-3" : "gap-3 px-4 py-3"} rounded-xl transition-all duration-200 ${getNavCls({ isActive: isActive(item.url) })}`}
+                        title={collapsed ? item.title : undefined}
                       >
                         <item.icon className="h-5 w-5 flex-shrink-0" />
                         {!collapsed && (
-                          <span className="font-medium">{item.title}</span>
+                          <span className="font-medium truncate">{item.title}</span>
                         )}
                       </NavLink>
                     </SidebarMenuButton>
@@ -105,11 +109,11 @@ export function AppSidebar() {
         </div>
 
         {/* Bottom Section - User Profile & Logout */}
-        <div className="p-4 border-t border-sidebar-border/30">
+        <div className={`${collapsed ? "p-2" : "p-4"} border-t border-sidebar-border/30 transition-all duration-300`}>
           {!collapsed && (
             <div className="mb-4 p-4 bg-sidebar-accent/30 rounded-2xl">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-sm font-bold text-primary-foreground">DU</span>
                 </div>
                 <div className="flex-1 min-w-0">
@@ -122,9 +126,10 @@ export function AppSidebar() {
           
           <Button 
             variant="ghost" 
-            className={`w-full justify-start gap-3 text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 rounded-xl ${collapsed ? 'px-3' : 'px-4'}`}
+            className={`w-full ${collapsed ? "justify-center px-3" : "justify-start gap-3 px-4"} text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 rounded-xl transition-all duration-300`}
+            title={collapsed ? "Logout" : undefined}
           >
-            <LogOut className="h-5 w-5" />
+            <LogOut className="h-5 w-5 flex-shrink-0" />
             {!collapsed && <span>Logout</span>}
           </Button>
         </div>
