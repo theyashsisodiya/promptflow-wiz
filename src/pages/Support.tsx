@@ -183,13 +183,13 @@ const Support = () => {
 
       {/* Documentation Links */}
       <Card className="gradient-card">
-        <CardHeader className="bg-slate-50">
+        <CardHeader className="bg-zinc-900">
           <CardTitle>Documentation & Resources</CardTitle>
           <CardDescription>
             Explore our comprehensive documentation library
           </CardDescription>
         </CardHeader>
-        <CardContent className="bg-slate-50">
+        <CardContent className="bg-zinc-900">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {documentationLinks.map((link, index) => <div key={index} className="flex items-center justify-between p-3 border border-border rounded-lg hover:bg-muted/20 transition-colors cursor-pointer">
                 <div>
@@ -204,13 +204,13 @@ const Support = () => {
 
       {/* System Status */}
       <Card className="gradient-card">
-        <CardHeader className="bg-slate-50">
+        <CardHeader className="bg-zinc-900">
           <CardTitle className="flex items-center gap-2">
             <CheckCircle className="h-5 w-5 text-status-success" />
             System Status
           </CardTitle>
         </CardHeader>
-        <CardContent className="bg-slate-50">
+        <CardContent className="bg-zinc-900">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[{
             service: "API Gateway",
