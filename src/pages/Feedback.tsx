@@ -100,13 +100,13 @@ const Feedback = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Feedback Form */}
         <Card className="gradient-card bg-slate-50">
-          <CardHeader className="bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle>Submit Feedback</CardTitle>
             <CardDescription>
               Share your thoughts, report bugs, or request new features
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <Tabs defaultValue="general" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="general">General</TabsTrigger>
@@ -195,13 +195,13 @@ const Feedback = () => {
 
         {/* Recent Feedback */}
         <Card className="gradient-card">
-          <CardHeader className="bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle>Recent Community Feedback</CardTitle>
             <CardDescription>
               See what other users are suggesting and vote on ideas
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="space-y-4">
               {recentFeedback.map(item => <div key={item.id} className="p-4 border border-border rounded-lg hover:bg-muted/20 transition-colors">
                   <div className="flex items-start justify-between">
