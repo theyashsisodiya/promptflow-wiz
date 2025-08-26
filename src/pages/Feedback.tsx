@@ -54,10 +54,10 @@ const Feedback = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="gradient-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium bg-slate-50">Feedback Submitted</CardTitle>
-            <MessageCircle className="h-4 w-4 text-primary bg-slate-50" />
+            <CardTitle className="text-sm font-medium bg-slate-50 text-slate-50">Feedback Submitted</CardTitle>
+            <MessageCircle className="h-4 w-4 text-primary bg-zinc-900" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-zinc-900">
             <div className="text-2xl font-bold">1,247</div>
             <p className="text-xs text-muted-foreground bg-slate-50">This month</p>
           </CardContent>
@@ -70,12 +70,12 @@ const Feedback = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-accent">23</div>
-            <p className="text-xs text-muted-foreground bg-slate-50">From user requests</p>
+            <p className="text-xs bg-slate-50 text-zinc-900">From user requests</p>
           </CardContent>
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-[0f212d] bg-zinc-900">
             <CardTitle className="text-sm font-medium">Bugs Fixed</CardTitle>
             <Bug className="h-4 w-4 text-status-success" />
           </CardHeader>
@@ -86,11 +86,11 @@ const Feedback = () => {
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-zinc-900">
             <CardTitle className="text-sm font-medium">Satisfaction Rate</CardTitle>
             <Heart className="h-4 w-4 text-error-red" />
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="text-2xl font-bold">4.8/5</div>
             <p className="text-xs text-muted-foreground">Average rating</p>
           </CardContent>
@@ -99,14 +99,14 @@ const Feedback = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Feedback Form */}
-        <Card className="gradient-card bg-zinc-900">
-          <CardHeader className="bg-slate-50">
+        <Card className="gradient-card bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle>Submit Feedback</CardTitle>
             <CardDescription>
               Share your thoughts, report bugs, or request new features
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <Tabs defaultValue="general" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="general">General</TabsTrigger>
@@ -195,13 +195,13 @@ const Feedback = () => {
 
         {/* Recent Feedback */}
         <Card className="gradient-card">
-          <CardHeader className="bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle>Recent Community Feedback</CardTitle>
             <CardDescription>
               See what other users are suggesting and vote on ideas
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="space-y-4">
               {recentFeedback.map(item => <div key={item.id} className="p-4 border border-border rounded-lg hover:bg-muted/20 transition-colors">
                   <div className="flex items-start justify-between">
