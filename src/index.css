@@ -54,7 +54,7 @@
   }
   
   .gradient-sidebar {
-    @apply bg-gradient-to-b from-sidebar-background/95 via-sidebar-background/98 to-sidebar-background;
+    @apply bg-gradient-to-b from-background/95 via-background/98 to-background;
   }
   
   .modern-panel {
@@ -107,6 +107,14 @@
   
   .error-red {
     @apply bg-red-400;
+  }
+
+  .sidebar-nav-active {
+    @apply bg-primary/20 text-primary border-l-4 border-primary font-medium shadow-lg;
+  }
+
+  .sidebar-nav-inactive {
+    @apply hover:bg-sidebar-accent/80 hover:text-sidebar-accent-foreground text-sidebar-foreground/80 transition-all duration-200;
   }
 }
 
