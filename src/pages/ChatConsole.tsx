@@ -116,7 +116,7 @@ const ChatConsole = () => {
         {/* Chat Interface */}
         <div className="lg:col-span-2">
           <Card className="gradient-card h-[600px] flex flex-col">
-            <CardHeader className="bg-slate-50">
+            <CardHeader className="bg-zinc-900">
               <CardTitle className="flex items-center gap-2">
                 <Bot className="w-5 h-5 text-primary" />
                 AI Workflow Assistant
@@ -126,9 +126,9 @@ const ChatConsole = () => {
               </CardDescription>
             </CardHeader>
 
-            <CardContent className="flex-1 flex flex-col bg-slate-50">
+            <CardContent className="flex-1 flex flex-col bg-zinc-900">
               <ScrollArea className="flex-1 mb-4">
-                <div className="space-y-4">
+                <div className="space-y-4 bg-zinc-900">
                   {messages.map(message => <div key={message.id} className={`p-4 rounded-lg border ${getMessageClass(message.type)}`}>
                       <div className="flex items-start gap-3">
                         <div className="mt-0.5 text-muted-foreground">
@@ -162,7 +162,7 @@ const ChatConsole = () => {
 
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input value={input} onChange={e => setInput(e.target.value)} placeholder="Ask me anything about your workflows..." className="flex-1" />
-                <Button type="submit" size="icon" className="bg-slate-50">
+                <Button type="submit" size="icon" className="bg-purple-800 hover:bg-purple-700">
                   <Send className="w-4 h-4" />
                 </Button>
               </form>
@@ -173,10 +173,10 @@ const ChatConsole = () => {
         {/* Quick Actions Panel */}
         <div className="space-y-6">
           <Card className="gradient-card">
-            <CardHeader className="bg-slate-50">
+            <CardHeader className="bg-zinc-900">
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 bg-slate-50">
+            <CardContent className="space-y-3 bg-zinc-900">
               <Button variant="outline" className="w-full justify-start">
                 <Zap className="w-4 h-4 mr-2" />
                 Start New Workflow
@@ -199,7 +199,7 @@ const ChatConsole = () => {
                 Describe your workflow in detail
               </CardDescription>
             </CardHeader>
-            <CardContent className="bg-slate-50">
+            <CardContent className="bg-zinc-900">
               <Textarea value={workflowPrompt} onChange={e => setWorkflowPrompt(e.target.value)} placeholder="I need to deploy a microservices application with..." rows={6} className="mb-4" />
               <Button onClick={handleWorkflowPrompt} className="w-full bg-primary hover:bg-primary/90">
                 Generate Workflow
