@@ -158,21 +158,21 @@ const Credentials = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-zinc-900">
             <CardTitle className="text-sm font-medium">Total Credentials</CardTitle>
             <Key className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="text-2xl font-bold">{credentials.length}</div>
             <p className="text-xs text-muted-foreground">Stored securely</p>
           </CardContent>
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-zinc-900">
             <CardTitle className="text-sm font-medium">Active</CardTitle>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="text-2xl font-bold text-status-success">
               {credentials.filter(c => c.status === 'active').length}
             </div>
@@ -181,10 +181,10 @@ const Credentials = () => {
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-zinc-900">
             <CardTitle className="text-sm font-medium">Unused</CardTitle>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="text-2xl font-bold text-status-warning">
               {credentials.filter(c => c.status === 'unused').length}
             </div>
@@ -193,10 +193,10 @@ const Credentials = () => {
         </Card>
 
         <Card className="gradient-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-slate-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-zinc-900">
             <CardTitle className="text-sm font-medium">Services</CardTitle>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="text-2xl font-bold">
               {new Set(credentials.map(c => c.service)).size}
             </div>
@@ -207,13 +207,13 @@ const Credentials = () => {
 
       {/* Credentials Table */}
       <Card className="gradient-card">
-        <CardHeader className="bg-slate-50">
+        <CardHeader className="bg-zinc-900">
           <CardTitle>Stored Credentials</CardTitle>
           <CardDescription>
             All credentials are encrypted at rest and in transit
           </CardDescription>
         </CardHeader>
-        <CardContent className="bg-slate-50">
+        <CardContent className="bg-zinc-900">
           <Table>
             <TableHeader>
               <TableRow>
@@ -259,10 +259,10 @@ const Credentials = () => {
 
       {/* Security Notice */}
       <Card className="gradient-card border-warning-orange/30">
-        <CardHeader className="bg-slate-50">
+        <CardHeader className="bg-zinc-900">
           <CardTitle className="text-warning-orange">Security Best Practices</CardTitle>
         </CardHeader>
-        <CardContent className="bg-slate-50">
+        <CardContent className="bg-zinc-900">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-medium mb-2">Credential Management</h4>
