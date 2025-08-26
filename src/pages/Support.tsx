@@ -67,7 +67,7 @@ const Support = () => {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="gradient-card cursor-pointer hover:shadow-lg transition-shadow">
-          <CardHeader className="bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle className="flex items-center gap-2 text-lg">
               <MessageSquare className="h-5 w-5 text-primary" />
               Live Chat
@@ -76,7 +76,7 @@ const Support = () => {
               Chat with our support team in real-time
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Average response: 2 minutes</span>
               <Button size="sm">Start Chat</Button>
@@ -85,7 +85,7 @@ const Support = () => {
         </Card>
 
         <Card className="gradient-card cursor-pointer hover:shadow-lg transition-shadow bg-slate-50">
-          <CardHeader className="bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Book className="h-5 w-5 text-accent" />
               Documentation
@@ -94,7 +94,7 @@ const Support = () => {
               Browse our comprehensive guides and tutorials
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">50+ articles</span>
               <Button size="sm" variant="outline">Browse Docs</Button>
@@ -102,8 +102,8 @@ const Support = () => {
           </CardContent>
         </Card>
 
-        <Card className="gradient-card cursor-pointer hover:shadow-lg transition-shadow bg-slate-50">
-          <CardHeader className="bg-slate-50">
+        <Card className="gradient-card cursor-pointer hover:shadow-lg transition-shadow bg-zinc-900">
+          <CardHeader className="bg-zinc-900">
             <CardTitle className="flex items-center gap-2 text-lg">
               <HelpCircle className="h-5 w-5 text-warning-orange" />
               Create Ticket
@@ -112,7 +112,7 @@ const Support = () => {
               Submit a detailed support request
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Response within 4 hours</span>
               <Button size="sm" variant="outline">New Ticket</Button>
@@ -124,13 +124,13 @@ const Support = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* FAQ Section */}
         <Card className="gradient-card">
-          <CardHeader className="bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle>Frequently Asked Questions</CardTitle>
             <CardDescription>
               Quick answers to common questions
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-slate-50">
+          <CardContent className="bg-zinc-900">
             <Accordion type="single" collapsible>
               {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`}>
                   <AccordionTrigger className="text-left">
@@ -146,13 +146,13 @@ const Support = () => {
 
         {/* Contact Form */}
         <Card className="gradient-card">
-          <CardHeader className="bg-slate-50">
+          <CardHeader className="bg-zinc-900">
             <CardTitle>Contact Support</CardTitle>
             <CardDescription>
               Can't find what you're looking for? Send us a message
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4 bg-slate-50">
+          <CardContent className="space-y-4 bg-zinc-900">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
