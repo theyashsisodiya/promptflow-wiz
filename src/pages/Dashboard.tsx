@@ -1,12 +1,18 @@
 
 import { useState } from "react";
-import { Activity, Clock, CheckCircle, AlertTriangle, Zap, Play, Pause, Settings, GitBranch, Server, Database, Shield } from "lucide-react";
+import { Activity, Clock, CheckCircle, AlertTriangle, Zap, Play, Pause, Settings, GitBranch, Server, Database, Shield, Filter, X } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { WorkflowChatbox } from "@/components/WorkflowChatbox";
+import { WorkflowDetailView } from "@/components/WorkflowDetailView";
 
 const Dashboard = () => {
+  const [selectedWorkflow, setSelectedWorkflow] = useState<number | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+
   const [workflows] = useState([
     {
       id: 1,
@@ -26,6 +32,14 @@ const Dashboard = () => {
     },
     {
       id: 3,
+      name: "Python Flask Application",
+      status: "failed",
+      progress: 45,
+      duration: "1m 47s",
+      steps: ["Build", "CI/CD", "Deploy", "Orchestrate"]
+    },
+    {
+      id: 4,
       name: "Security Scan - Docker Images",
       status: "pending",
       progress: 0,
@@ -70,6 +84,25 @@ const Dashboard = () => {
     }
   };
 
+  const filteredWorkflows = workflows.filter(workflow => {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "active") return workflow.status === "running";
+    if (activeFilter === "completed") return workflow.status === "completed";
+    if (activeFilter === "failed") return workflow.status === "failed";
+    return true;
+  });
+
+  const handleWorkflowCreate = (prompt: string) => {
+    console.log("Creating workflow with prompt:", prompt);
+    // Here you would typically send the prompt to your AI service
+  };
+
+  const handleWorkflowClick = (workflowId: number) => {
+    setSelectedWorkflow(selectedWorkflow === workflowId ? null : workflowId);
+  };
+
+  const selectedWorkflowData = workflows.find(w => w.id === selectedWorkflow);
+
   return (
     <div className="space-y-8 max-w-full">
       {/* Header */}
@@ -84,26 +117,29 @@ const Dashboard = () => {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <Badge variant="outline" className="status-success text-base px-4 py-2">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2"></div>
+            <Badge variant="outline" className="status-success text-base px-4 py-2 border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
               All Systems Operational
             </Badge>
           </div>
         </div>
       </div>
 
+      {/* AI Workflow Creator */}
+      <WorkflowChatbox onWorkflowCreate={handleWorkflowCreate} />
+
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
-          <Card key={index} className="gradient-card border-border/30 hover:border-primary/30 transition-all duration-300 hover:shadow-xl">
+          <Card key={index} className="gradient-card border-border/30 hover:border-primary/30 transition-all duration-300 hover:shadow-xl shadow-primary/5">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
                   <p className="text-3xl font-bold text-foreground mt-2">{stat.value}</p>
-                  <p className={`text-sm mt-1 ${stat.color}`}>{stat.change} from yesterday</p>
+                  <p className={`text-sm mt-1 ${stat.color} font-medium`}>{stat.change} from yesterday</p>
                 </div>
-                <div className={`p-3 rounded-2xl bg-muted/30`}>
+                <div className={`p-3 rounded-2xl bg-muted/30 border border-border/50`}>
                   <stat.icon className={`h-6 w-6 ${stat.color}`} />
                 </div>
               </div>
@@ -118,55 +154,93 @@ const Dashboard = () => {
         <div className="lg:col-span-2">
           <Card className="gradient-card border-border/30">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Activity className="h-5 w-5 text-primary" />
-                Active Workflows
-              </CardTitle>
-              <CardDescription>
-                Real-time status of your running automation workflows
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-3">
+                    <Activity className="h-5 w-5 text-primary" />
+                    Active Workflows
+                  </CardTitle>
+                  <CardDescription>
+                    Real-time status of your running automation workflows
+                  </CardDescription>
+                </div>
+                <Button variant="outline" size="sm" className="rounded-xl">
+                  <Filter className="h-4 w-4 mr-2" />
+                  Filter
+                </Button>
+              </div>
+              
+              {/* Filter Tabs */}
+              <Tabs value={activeFilter} onValueChange={setActiveFilter} className="mt-4">
+                <TabsList className="grid w-full grid-cols-4 bg-muted/30 rounded-xl">
+                  <TabsTrigger value="all" className="rounded-lg">All</TabsTrigger>
+                  <TabsTrigger value="active" className="rounded-lg">Active</TabsTrigger>
+                  <TabsTrigger value="completed" className="rounded-lg">Completed</TabsTrigger>
+                  <TabsTrigger value="failed" className="rounded-lg">Failed</TabsTrigger>
+                </TabsList>
+              </Tabs>
             </CardHeader>
             <CardContent className="space-y-4">
-              {workflows.map((workflow) => (
-                <div key={workflow.id} className="p-4 rounded-2xl bg-muted/30 hover:bg-muted/40 transition-all duration-300">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-2">
-                        {getStatusIcon(workflow.status)}
-                        <h4 className="font-semibold text-foreground">{workflow.name}</h4>
+              {filteredWorkflows.map((workflow) => (
+                <div key={workflow.id}>
+                  <div 
+                    className="p-4 rounded-2xl bg-muted/30 hover:bg-muted/40 transition-all duration-300 cursor-pointer border border-border/30 hover:border-primary/30"
+                    onClick={() => handleWorkflowClick(workflow.id)}
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
+                          {getStatusIcon(workflow.status)}
+                          <h4 className="font-semibold text-foreground">{workflow.name}</h4>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Badge className={`${getStatusColor(workflow.status)} border font-medium`}>
+                          {workflow.status.toUpperCase()}
+                        </Badge>
+                        <span className="text-sm text-muted-foreground font-mono">{workflow.duration}</span>
+                        {selectedWorkflow === workflow.id && (
+                          <Button variant="ghost" size="sm" className="rounded-lg">
+                            <X className="h-4 w-4" />
+                          </Button>
+                        )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Badge className={`${getStatusColor(workflow.status)} border`}>
-                        {workflow.status}
-                      </Badge>
-                      <span className="text-sm text-muted-foreground">{workflow.duration}</span>
+                    
+                    <div className="space-y-3">
+                      <Progress value={workflow.progress} className="h-2" />
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {workflow.steps.map((step, index) => (
+                          <Badge 
+                            key={index} 
+                            variant="outline" 
+                            className={`text-xs rounded-full transition-all duration-200 ${
+                              index < Math.floor(workflow.progress / 25) 
+                                ? 'bg-primary/20 text-primary border-primary/30' 
+                                : 'border-border/50 text-muted-foreground'
+                            }`}
+                          >
+                            {step}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="space-y-3">
-                    <Progress value={workflow.progress} className="h-2" />
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {workflow.steps.map((step, index) => (
-                        <Badge 
-                          key={index} 
-                          variant="outline" 
-                          className={`text-xs rounded-full ${
-                            index < Math.floor(workflow.progress / 25) ? 'bg-primary/20 text-primary border-primary/30' : 'border-border/50'
-                          }`}
-                        >
-                          {step}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+
+                  {/* Detailed Workflow View */}
+                  {selectedWorkflow === workflow.id && selectedWorkflowData && (
+                    <WorkflowDetailView
+                      workflow={selectedWorkflowData}
+                      onClose={() => setSelectedWorkflow(null)}
+                    />
+                  )}
                 </div>
               ))}
             </CardContent>
           </Card>
         </div>
 
-        {/* Connected Integrations */}
+        {/* Connected Integrations & Quick Actions */}
         <div className="space-y-6">
           <Card className="gradient-card border-border/30">
             <CardHeader>
@@ -180,12 +254,12 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent className="space-y-3">
               {integrations.map((integration, index) => (
-                <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-muted/20 hover:bg-muted/30 transition-all duration-200">
+                <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-muted/20 hover:bg-muted/30 transition-all duration-200 border border-border/30">
                   <div className="flex items-center gap-3">
                     <div className="text-2xl">{integration.icon}</div>
                     <span className="font-medium text-foreground">{integration.name}</span>
                   </div>
-                  <Badge className={integration.color} variant="outline">
+                  <Badge className={`${integration.color} border-0`} variant="outline">
                     {integration.status}
                   </Badge>
                 </div>
@@ -202,19 +276,19 @@ const Dashboard = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button className="w-full justify-start gap-3 h-12 rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 hover:from-primary/30 hover:to-accent/30 border border-primary/30">
+              <Button className="w-full justify-start gap-3 h-12 rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 hover:from-primary/30 hover:to-accent/30 border border-primary/30 transition-all duration-200">
                 <GitBranch className="h-4 w-4" />
                 Deploy Latest Build
               </Button>
-              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10">
+              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10 border-border/50 transition-all duration-200">
                 <Server className="h-4 w-4" />
                 Scale Services
               </Button>
-              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10">
+              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10 border-border/50 transition-all duration-200">
                 <Database className="h-4 w-4" />
                 Backup Database
               </Button>
-              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10">
+              <Button variant="outline" className="w-full justify-start gap-3 h-12 rounded-xl hover:bg-primary/10 border-border/50 transition-all duration-200">
                 <Shield className="h-4 w-4" />
                 Security Scan
               </Button>

@@ -58,24 +58,24 @@ export function AppSidebar() {
   const getNavCls = ({ isActive }: { isActive: boolean }) => 
     isActive 
       ? "bg-primary/20 text-primary border-l-4 border-primary font-medium shadow-lg" 
-      : "hover:bg-sidebar-accent/50 hover:text-sidebar-foreground text-sidebar-foreground/80";
+      : "hover:bg-sidebar-accent/80 hover:text-sidebar-accent-foreground text-sidebar-foreground/80 transition-all duration-200";
 
   return (
     <Sidebar 
-      className={`${collapsed ? "w-16" : "w-72"} transition-all duration-300`} 
+      className={`${collapsed ? "w-16" : "w-72"} transition-all duration-300 border-r border-sidebar-border/50`} 
       collapsible="icon"
     >
-      <SidebarContent className="gradient-sidebar border-r border-sidebar-border">
+      <SidebarContent className="gradient-sidebar bg-sidebar/95 backdrop-blur-sm">
         {/* Logo Section */}
         <div className={`${collapsed ? "p-3" : "p-6"} border-b border-sidebar-border/30 transition-all duration-300`}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary via-primary/80 to-accent rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 flex-shrink-0 border border-primary/20">
               <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
             {!collapsed && (
               <div className="min-w-0">
-                <h1 className="text-xl font-bold text-sidebar-foreground truncate">AIaaS</h1>
-                <p className="text-sm text-sidebar-foreground/70 truncate">DevOps Platform</p>
+                <h1 className="text-xl font-bold text-sidebar-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent truncate">AIaaS</h1>
+                <p className="text-sm text-sidebar-foreground/60 truncate">DevOps Platform</p>
               </div>
             )}
           </div>
@@ -111,9 +111,9 @@ export function AppSidebar() {
         {/* Bottom Section - User Profile & Logout */}
         <div className={`${collapsed ? "p-2" : "p-4"} border-t border-sidebar-border/30 transition-all duration-300`}>
           {!collapsed && (
-            <div className="mb-4 p-4 bg-sidebar-accent/30 rounded-2xl">
+            <div className="mb-4 p-4 bg-sidebar-accent/20 rounded-2xl border border-sidebar-border/30">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
                   <span className="text-sm font-bold text-primary-foreground">DU</span>
                 </div>
                 <div className="flex-1 min-w-0">
