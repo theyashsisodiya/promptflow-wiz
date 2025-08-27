@@ -6,6 +6,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 interface Notification {
   id: string;
   type: 'success' | 'error' | 'warning' | 'info';
@@ -15,6 +16,7 @@ interface Notification {
   read: boolean;
   toolName?: string;
 }
+
 const mockNotifications: Notification[] = [{
   id: '1',
   type: 'success',
@@ -40,6 +42,7 @@ const mockNotifications: Notification[] = [{
   read: true,
   toolName: 'Kubernetes'
 }];
+
 export function Header() {
   const {
     t,
@@ -47,12 +50,14 @@ export function Header() {
   } = useTranslation();
   const [notifications, setNotifications] = useState(mockNotifications);
   const unreadCount = notifications.filter(n => !n.read).length;
+
   const markAsRead = (id: string) => {
     setNotifications(prev => prev.map(n => n.id === id ? {
       ...n,
       read: true
     } : n));
   };
+
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case 'success':
@@ -65,10 +70,12 @@ export function Header() {
         return <Clock className="w-4 h-4 text-status-running" />;
     }
   };
+
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
-  return <header className="h-16 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-50">
+
+  return <header className="h-16 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-5">
       <div className="flex items-center gap-4">
         <SidebarTrigger />
         <div className="flex items-center gap-3">
